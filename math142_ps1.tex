@@ -1,0 +1,54 @@
+\documentclass[12pt]{article}
+\author{David Alves}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{dirtytalk}
+\usepackage[a4paper, total={6.5in, 8.75in}]{geometry}
+\usepackage{forest}
+\usepackage{skak}
+\usepackage{tikz}
+\usepackage{titling}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+
+\def\multichoose#1#2{\ensuremath{\left(\kern-.3em\left(\genfrac{}{}{0pt}{}{#1}{#2}\right)\kern-.3em\right)}}
+
+\title{Math 142 Problem Set 1}
+\author{David Alves}
+\date{2016-08-30}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\begin{center}
+\large \thetitle \\
+\theauthor \\
+\thedate
+\end{center}
+
+\subsection*{Sources}
+
+    \begin{itemize}
+    \item http://tex.stackexchange.com and https://www.sharelatex.com for help with \LaTeX
+    \end{itemize}
+
+\section*{Subset Counting}
+
+\subsection*{Problem Statement}
+Prove that there are $2^{17}$ subsets of $[17]$
+\subsection*{Solution}
+Let $f(s)$ denote the set of all subsets of a set $s$. We can show that $|f([17])| = 2^{17}$ using induction by demonstrating two things:
+
+\begin{enumerate}
+\item $|f([0])| = 2^0$ (Base case)
+\item If $|f([k])| = 2^k$, then $|f([k+1])| = 2^{k+1}$
+\end{enumerate}
+
+\subsubsection*{Base Case}
+$[0]$ is the empty set, which contains no elements. The empty set is a subset of itself, but has no other subsets. Therefore $|f([0])| = 2^0$.
+\subsubsection*{Inductive Step}
+For each subset $s$ of $[k]$ there exist exactly two subsets of $[k+1]$: the original subset, and a subset consisting of the original subset plus the element not in $[k]$. Therefore $[k+1]$ contains exactly twice as many subsets as $[k]$, so $|f([k+1])| = 2|f([k])|$. Thus if $|f([k])| = 2^k$, then $|f([k+1])| = 2^{k+1}$ 
+
+\end{document}

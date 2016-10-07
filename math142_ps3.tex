@@ -1,0 +1,169 @@
+\documentclass[12pt]{article}
+\author{David Alves}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{dirtytalk}
+\usepackage{forest}
+\usepackage{skak}
+\usepackage{tikz}
+\usepackage{titling}
+
+\title{Math 142 Problem Set 3}
+\author{David Alves}
+\date{2016-09-13}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\begin{center}
+\Large \thetitle \\
+\large \theauthor \\
+\thedate
+\end{center}
+
+\subsection*{Sources}
+
+    \begin{itemize}
+    \item Notes from lecture and my own memory from Math 42 for solving the problems
+    \item http://tex.stackexchange.com and https://www.sharelatex.com for help with \LaTeX
+    \end{itemize}
+
+\section{Equivalence Relations and Partitions}
+
+\subsection*{Problem Statement}
+Show that there is a bijection between the set of (equivalence relations on a set $A$) and the set of (partitions of $A$). 
+\subsection*{Solution}
+
+%{a b | c} <=> {(a,a), (b,b), (a,b), (b,a), (c,c)}
+
+Let $P$ be a partition of $A$ and let $p_1, p_2, \ldots, p_n (n\geq 1)$ refer to the subsets in that partition. By the definition of a partition, each element of $A$ is contained in exactly one subset of $P$. Let $g(e) \in p_1, p_2, \ldots, p_n$ denote the subset that element $e$ is in.
+
+Let $f(P)$ be the set of ordered pairs $\{(a, b) : g(a) = g(b)\}$. Note that $a$ and $b$ can be the same element in this definition. $f(P)$ is an equivalence relation, and $f$ is a bijection because it is both an injection and a surjection. Therefore there is a bijection between the set of (equivalence relations on a set $A$) and the set of (partitions of $A$)
+
+\subsubsection*{$f(P)$ is an Equivalence Relation}
+\begin{proof}
+$f(P)$ is relation on $A\times A$ because it is a subset of $A\times A$ and satisfies the three requirements of an equivalence relation as follows:
+\begin{itemize}
+\item Reflexive property: $(e, e) \in f(P)$ for all $e \in A$. True because $g(e) = g(e)$.    
+\item Symmetric property: If $(a, b)$ is in $f(P)$, $(b, a)$ must be in $f(P)$ for all $a, b \in A$. True because if $g(a) = g(b)$, then $g(b) = g(a)$.
+\item Transitive property: If $(a,b)$ and $(b,c)$ are in $f(P)$, then $(a,c)$ is in  $f(P)$. True because if $g(a) = g(b)$ and $g(b) = g(c)$, then $g(a)$ = $g(c)$.
+\end{itemize}
+
+\end{proof}
+\subsubsection*{$f$ is an Injection}
+\begin{proof}
+
+\end{proof}
+\subsubsection*{$f$ is a Surjection}
+\begin{proof}
+    
+\end{proof}
+
+
+
+\section{Amusement Park Counting}
+
+There are $n$ couples. For each couple, there are two ways to select who sits on the left, giving $2^n$ choices by the product principle. For a roller coaster, there are $n!$ ways to order the couples in the cars, giving a total of $n!2^n$ arrangements. For a Ferris wheel, each arrangement of people is being overcounted $n$ times, one for each position that the Ferris wheel can be rotated into. Therefore we need to divide by $n$, giving a total of $(n-1)!2^n$ arrangements for a Ferris wheel.
+
+
+\section{Binomial Coefficients}
+
+\[
+\sum_{\substack{k=0\\ \text{k odd}}}^{n}\binom{n}{k} = 
+\sum_{\substack{k=0\\ \text{k even}}}^{n}\binom{n}{k} = 
+\sum_{k=0}^{n-1}\binom{n}{k}
+\]
+\\
+Below is an illustration to show why. $\sum_{k=0}^{n}\binom{n}{k}$ for alternate elements (either $k$ even or $k$ odd) is equal to the sum of the $\binom{n-1}{k}$ for all elements since each element on the $n-1$ row contributes to exactly one element on the following row (rather than both). 
+
+\begin{center}
+\begin{tikzpicture}[
+    scale=1,
+    tcancel/.append style={draw=#1, cross out, inner sep=1pt}
+]
+\node at ( 0, 0) {1};
+\node at (-1,-1) {1};
+\node at ( 1,-1) {1};
+\node at (-2,-2) {1};
+\node at ( 0,-2) {2};
+\node at ( 2,-2) {1};
+\node at (-3,-3) {1};
+\node at (-1,-3) {3};
+\node at ( 1,-3) {3};
+\node at ( 3,-3) {1};
+\node at ( 0, -4.5) {$\vdots$};
+\node at (-6, -6) {1};
+\node at (-4.5, -6) {$\ldots$};
+\node at (-3, -6) (up2l) {$\binom{n-1}{k-2}$};
+\node at (-1, -6) (up1l) {$\binom{n-1}{k-1}$};
+\node at ( 1, -6) (up1r) {$\binom{n-1}{k}$};
+\node at ( 3, -6) (up2r) {$\binom{n-1}{k+1}$};
+\node at ( 4.5, -6) {$\ldots$};
+\node at ( 6, -6) {1};
+\node at (-7, -7) {1};
+\node at (-5.5, -7) {$\ldots$};
+\node at (-4, -7) (main2l) {$\binom{n}{k-2}$};
+\node [color=gray,tcancel=red]at (-2, -7) (main1l) {$\binom{n}{k-1}$};
+\node at ( 0, -7) (maincc)  {$\binom{n}{k}$};
+\node [color=gray,tcancel=red] at ( 2, -7) (main1r){$\binom{n}{k+1}$};
+\node at ( 4, -7) (main2r){$\binom{n}{k+2}$};
+\node at (5.5, -7) {$\ldots$};
+\node at ( 7, -7) {1};
+\draw [->, thick] (up2r)--(main2r);
+\draw [->, thick] (up1r)--(maincc);
+\draw [->, thick] (up1l)--(maincc);
+\draw [->, thick] (up2l)--(main2l);
+\end{tikzpicture}
+\end{center}
+
+
+\section{Card Counting}
+
+% With n ranks and k suits, how many ways are there to make 3 of a kind with a set of 5 cards?
+% What about two pair?
+% Which one is more rare for a normal deck?
+% Give a deck where the rarity is switched
+
+With $n$ ranks and $k$ suits, there are $something$ ways to make 3-of-a-kind and $something$ ways to make two pair. 
+
+\subsection*{Three-of-a-kind}
+
+Three-of-a-kind consists of three cards with identical rank and two cards which do not have that rank and do not share a rank with each other. There are $\binom{k}{3}$ ways to select the suits for the three cards and $n$ different possible ranks. There are $\binom{n-1}{2}$ ways to choose the ranks for the other two cards and $k$ possible suits for each of them. Therefore the total number of unique three-of-a-kind hands is 
+\[
+nk^2\binom{k}{3}\binom{n-1}{2}
+\]
+
+For two pair, there are $\binom{n}{2}$ ways to choose the ranks for the two pairs and $n-2$ possible ranks for the remaining card. There are $\binom{k}{2}$ ways to select the suits for each of the two pairs. Finally there are $k$ possible suits for the remaining card. Therefore the total number of unique two pair hands is
+\[
+(n-2)k\binom{n}{2}\binom{k}{2}^2
+\]
+
+Plugging in the numbers for a normal ($n=13, k=4$) deck gives 10816 possible three-of-a-kind hands and 123552 possible two pair hands, therefore three-of-a-kind is more rare.
+
+The rarity is switched for a deck with $n=3$ and $k=10$ because there are 108,000 unique 3-of-a-kind hands and 60,750 unique two pair hands.
+
+
+\section{Fixed Elements}
+
+\subsection*{Involutions and Fixed Points}
+
+% Prove that the number of non-fixed points in an involution is even
+\begin{proof}
+For each non-fixed element, we have $f(a) = a', a \neq a'$. Since $f$ is an involution, we also know that $f(a') = a$. We can remove $a$ and $a'$ from the domain and codomain of $f$ to construct $f'$. Repeatedly applying the same process we will eventually reduce our function to one consisting of only zero or more fixed elements. After this process is complete we will have removed two elements from the domain $k$ times, meaning $2k$ total non-fixed elements existed. Therefore the the number of non-fixed elements in $f$ is even.\end{proof}
+
+\subsection*{Odd divisors}
+
+
+Note: I'm assuming that the problem is asking for positive divisors although that was not explicitly stated.
+
+
+Let $n$ be a positive integer and let $D$ be the set of integers that evenly divide $n$. $|D|$ is odd if and only if $n$ is a perfect square, that is if there is some positive integer $k$ such that $k^2 = n$.
+\begin{proof}
+For each element $e$ of $D$, there exists an element $e'$ of $D$ such that $e*e' = n$ since $D$ contains all integer divisors of $n$. For each $e \neq e'$ we have exactly one corresponding element, so the total size of such elements is even. If $n$ is a perfect square then $D$ also contains a single element $e$ such that $e^2=n$, and therefore $|D|$ is odd if and only if $n$ is a perfect square.
+\end{proof}
+\section{Time Spent}
+
+I spent about six hours on this assignment. I didn't have enough time to finish all the problems due to lots of other things going on this week. :( None of them stumped me for too long, although I always have a hard time knowing how rigorous I should be and how much I'm allowed to just skip over without explicitly proving.
+
+\end{document}

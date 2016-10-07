@@ -1,0 +1,135 @@
+\documentclass[12pt]{article}
+\author{David Alves}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{dirtytalk}
+\usepackage[a4paper, total={6.5in, 8.75in}]{geometry}
+\usepackage{forest}
+\usepackage{skak}
+\usepackage{tikz}
+\usepackage{titling}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+
+\def\multichoose#1#2{\ensuremath{\left(\kern-.3em\left(\genfrac{}{}{0pt}{}{#1}{#2}\right)\kern-.3em\right)}}
+
+\title{Math 142 Problem Set 6}
+\author{David Alves}
+\date{2016-10-06}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\begin{center}
+\large \thetitle \\
+\theauthor \\
+\thedate
+\end{center}
+
+\subsection*{Sources}
+
+    \begin{itemize}
+    \item http://tex.stackexchange.com and https://www.sharelatex.com for help with \LaTeX
+    \end{itemize}
+
+\section{Some Chairs are Dry}
+
+\subsection*{Problem Statement}
+Find the exact problem with the following proof: \say{We prove that all sets of $n$ chairs are wet, $n \geq 0$ an integer, by induction. For base case, it is (vacuously) true that for all chairs in an empty set of 0 chairs, they are wet. Suppose our statement is true for $n$. Consider a set of $(n+1)$ chairs. Sit on a chair $C$. The chairs not counting $C$ form a set of $n$ chairs. By assumption, they are all wet. Now get off your chair $C$ and sit on a different chair. Now the other chairs, including $C$, form a set of $n$ chairs. By assumption, these chairs are all wet, so $C$ is wet. Since $C$ is wet and all other chairs are wet, all $(n+1)$ chairs are wet and the inductive step is complete.}
+\subsection*{Solution}
+
+The inductive step requires at least one wet chair in the set of $n$ wet chairs (the one which gets swapped with $C$) in order to prove $n+1$, but the base case is 0 chairs. Therefore the inductive step is not valid for $n=0$ and the proof fails. (Note that if the base case was $n=1$, \say{All sets of 1 chair are wet} then the proof would work.)
+
+\section{Rooks on a Chessboard}
+
+\subsection*{Problem Statement}
+Find the number of ways to place three rooks on an $8\times8$ chessboard such that no rooks attack each other (meaning no two rooks are in the same row or column).
+\subsection*{Solution}
+
+There are 18816 ways to place three indistinguishable rooks onto an $8\times8$ chessboard so that no two rooks can attack each other.
+
+\begin{proof}
+In order for rooks not to attack each other, they need to all be on different ranks and all be different files. Label the rooks $R_1, R_2, R_3$. There are $8 \text{ ranks} \times 8 \text{ files} = 64$ ways to place $R_1$ on an empty board. There are 7 empty ranks and 7 empty files left for $R_2$, giving 49 choices. Finally there are 6 empty ranks and 6 empty files left for $R_3$. This gives $64\times49\times36=112896$ ways to place rooks if they were distinguishable. We then divide this result by $3!$ permutations of the labelled rooks due to the quotient principle (since rooks are indistinguishable) to get $\frac{112896}{3!} = 18816$ placements.
+\end{proof}
+
+\section{Digit Lists}
+
+\subsection*{Problem Statement}
+How many $n$-digit lists of digits 0 through 9 are there such that the digits 1,2,3, and 9 all appear at least once?
+\subsection*{Solution}
+
+\newcommand{\dlist}[1]{D_{#1}}
+There are $10^n - 4(9^n) + 6(8^n) - 4(7^n) + 6^n$ $n$-digit lists which contain each of the digits 1,2,3 and 9 one or more times.
+
+\begin{proof}
+Let $D_k$ be the set of length-$n$ lists which do not contain the digit $k$. The set of length-$n$ lists which is missing at least one of the digits 1, 2, 3, and 9 is therefore $D_1 \cup D_2 \cup D_3 \cup D_9$. By the inclusion-exclusion principle, we have
+
+\begin{multline}\label{eq:ps6_3_1}
+    |\dlist{1} \cup \dlist{2} \cup \dlist{3} \cup \dlist{9}| = |\dlist{1}| + |\dlist{2}| + |\dlist{3}| + |\dlist{9}|\\ 
+    -|\dlist{1} \cap \dlist{2}| - |\dlist{1} \cap \dlist{3}| - |\dlist{1} \cap \dlist{9}| - |\dlist{2} \cap \dlist{3}| - |\dlist{2} \cap \dlist{9}| - |\dlist{3} \cap \dlist{9}|\\
+    +|\dlist{1} \cap \dlist{2} \cap \dlist{3}| + |\dlist{1} \cap \dlist{2} \cap \dlist{9}| + |\dlist{1} \cap \dlist{3} \cap \dlist{9}| + |\dlist{2} \cap \dlist{3} \cap \dlist{9}|\\
+    -|\dlist{1} \cap \dlist{2} \cap \dlist{3} \cap \dlist{9}|
+\end{multline}
+
+The size of $D_k$ for any digit $k$ is $9^n$ since there are 9 possibilities for each digit (anything other than $k$). The size of $D_a \cap D_b : a \neq b$ is $8^n$ since each digit can be anything except $a$ and $b$. Similarly, the size of $D_a \cap D_b \cap D_c: (a,b,c \text{ all distinct})$ is $7^n$ and the size of $D_a \cap D_b \cap D_c \cap D_d: (a,b,c,d \text{ all distinct})$ is $6^n$. Substituting these values into equation \ref{eq:ps6_3_1} gives $
+    |\dlist{1} \cup \dlist{2} \cup \dlist{3} \cup \dlist{9}| = 4(9^n) - 6(8^n) + 4(7^n) - 6^n$.
+     
+By the sum principle, the number of digit lists of size $n$ is equal to the number of size-$n$ lists where all of the digits $1,2,3,9$ appear plus the number of size-$n$ lists where one or more of the digits $1,2,3,9$ does not appear, which is $|\dlist{1} \cup \dlist{2} \cup \dlist{3} \cup \dlist{9}|$. The total number of lists of length $n$ is $10^n$ since there are 10 possibilities for each digit, therefore the number of lists of size $n$ where each digit $1,2,3,9$ appears one or more times is $10^n - 4(9^n) + 6(8^n) - 4(7^n) + 6^n$
+\end{proof}
+
+\section{Black \& White Graphs}
+\subsection*{Problem Statement}
+Consider a complete graph on 6 vertices. Color some of the edges white and some of the edges black. Prove that there must be a triangle with all white edges or all black edges somewhere in the graph. (A triangle with all white edges would be some 3 vertices $a,b,c$ such that the edges $(a,b), (a,c), (b,c)$ are all white)
+\subsection*{Solution}
+\begin{proof}
+Assume that an edge coloring exists on $K_6$ such that each edge is either black or white and there are no all-black or all-white triangles. Consider a vertex $v$. $v$ is connected to the other five vertices by five edges. At least three of these edges must share some color $c$. (If more than three share a color, consider only three of them). Let the three vertices connected to $v$ by $c$-colored edges be $x$, $y$, and $z$. Since $(v,x)$ and $(v,y)$ are colored $c$, $(x,y)$ must be non-$c$-colored otherwise $(v,x), (v,y), (x,y)$ would form a $c$-colored triangle which would contradict our assumption. Similarly since $(v,x)$ and $(v,z)$ are $c$-colored, $(x,z)$ must be non-$c$-colored, and since $(v,y)$ and $(v,z)$ are $c$-colored, $(y,z)$ must be a non-$c$-colored. Since $(x,y)$, $(x,z)$, and $(y,z)$ are all non-$c$-colored, it is an all-black or all-white triangle, which contradicts our assumption. Therefore the assumption is incorrect, and there are no edge colorings on $K_6$ such that there are no all-black or all-white triangles.\\
+\end{proof}
+
+\colorlet{verylightgray}{black!45}
+\begin{center}    
+\begin{tikzpicture}
+\node[shape=circle,draw=black] (A) at (0,0) {$v$};
+    \node[shape=circle,draw=black] (B) at (4,0) {$z$};
+    \node[shape=circle,draw=black] (C) at (1.24,3.8) {$y$};
+    \node[shape=circle,draw=black] (D) at (-3.24, 2.35) {$x$};
+    \node[shape=circle,draw=black] (E) at (-3.24, -2.35) { };
+    \node[shape=circle,draw=black] (F) at (1.24,-3.8) { } ;
+
+    \path [-,line width=1pt] (A) edge node[left] {} (B);
+    \path [-,line width=1pt] (A) edge node[left] {} (C);
+    \path [-,line width=1pt] (A) edge node[left] {} (D);
+    \path [-,color=verylightgray] (A) edge node[left] {} (E);
+    \path [-,color=verylightgray] (A) edge node[left] {} (F);
+    \path [-,line width=1pt,style=dashed] (B) edge node[left] {} (C);
+    \path [-,line width=1pt,style=dashed] (B) edge node[left] {} (D);
+    \path [-,color=verylightgray] (B) edge node[left] {} (E);
+    \path [-,color=verylightgray] (B) edge node[left] {} (F);
+    \path [-,line width=1pt,style=dashed] (C) edge node[left] {} (D);
+    \path [-,color=verylightgray] (C) edge node[left] {} (E);
+    \path [-,color=verylightgray] (C) edge node[left] {} (F);
+    \path [-,color=verylightgray] (D) edge node[left] {} (E);
+    \path [-,color=verylightgray] (D) edge node[left] {} (F);
+    \path [-,color=verylightgray] (E) edge node[left] {} (F);
+\end{tikzpicture}
+\end{center}
+
+
+\section{Friends at a Party}
+\subsection*{Problem Statement}
+Thirteen people meet at a party. Then none or some of the people decide to send Facebook friend requests to some of the other people at the party. How many outcomes are there? (Two outcomes are equivalent if the same set of friend requests were made, where a request only depends on the identity of the person asking and the person asked.)
+\subsection*{Solution}
+
+There are $2^{156}$ possible outcomes.
+
+\begin{proof}
+Let $S$ be the set of people at the party. A friend request can be represented as a two-element list $(a, b)$ where $a$ is the sender and $b$ is the recipient and $a \neq b$. Thus for each of the 13 senders, there are 12 possible recipients making a set of 156 possible friend requests by the product principle. An outcome is a subset of this set, thus there are $2^{156}$ possible outcomes. 
+\end{proof}
+
+\section{Time Spent \& Thoughts}
+
+This problem set was about average difficulty. I spent about six hours, mostly on the Black \& White problem. Typing up the Digit Lists problem also took a while, although the problem itself wasn't hard.
+
+ The black and white graphs problem had me stuck for a while before I figured out the trick of starting with a single vertex and saying that there must be at least 3 outgoing edges with the same color.  I spent a while trying to prove that a set of 8 edges on $K_6$ guarantees a triangle (since you are partitioning 15 edges into two groups, one must have size 8 or more) but that was a more difficult approach. There doesn't seem to be any clear connection between the black and white problem and what we've been doing in this class, so I'm not sure what the idea behind including it was --- just more practice with proofs?
+\end{document}

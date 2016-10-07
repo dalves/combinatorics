@@ -1,0 +1,210 @@
+\documentclass[12pt]{article}
+\author{David Alves}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{dirtytalk}
+\usepackage[a4paper, total={6.5in, 8.5in}]{geometry}
+\usepackage{forest}
+\usepackage{skak}
+\usepackage{tikz}
+\usepackage{titling}
+
+\title{Math 142 Problem Set 4}
+\author{David Alves}
+\date{2016-09-20}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\begin{center}
+\Large \thetitle \\
+\large \theauthor \\
+\thedate
+\end{center}
+
+\subsection*{Sources}
+
+    \begin{itemize}
+    \item Notes from lecture and my own memory from Math 42 for solving the problems
+    \item \textit{Combinatorics Through Guided Discovery} for formal definition of quotient principle
+    \item http://tex.stackexchange.com and https://www.sharelatex.com for help with \LaTeX
+    \end{itemize}
+
+\section{Counting Equivalence Relations}
+\subsection*{Problem Statement}
+What is the number of equivalence relations on $[5]$?
+\subsection*{Solution}
+There are 52 equivalence relations on $[5]$. 
+\begin{proof}
+From the previous homework, we know that the number of equivalence relations on $S \rightarrow S$ is equal to the number of partitions on $S$. Therefore we can count partitions of $[5]$ in order to get the number of equivalence relations on $[5]$. Below is a systematic enumeration of the partitions of $[5]$. Nodes in the tree consist of partitions of a subset, with leaf nodes consisting of partitions of the full set. A node's children are formed by adding the next element to each of the existing partitions and a new partition. The first level of the tree adds element 1, the second level adds element 2, etc.
+\end{proof}
+\scalebox{0.65}{
+\begin{forest}
+  for tree={
+    grow'=0,
+    child anchor=west,
+    parent anchor=east,
+    anchor=west,
+    calign=center,
+    inner ysep=0.0pt,
+    fit=band,
+    before computing xy={l=135pt},
+  }
+    [$\{\{1\}\}$
+        [$\{\{1\text{,}2\}\}$
+            [$\{\{1\text{,}2\text{,}3\}\}$
+                [$\{\{1\text{,}2\text{,}3\text{,}4\}\}$
+                    [$\{\{1\text{,}2\text{,}3\text{,}4\text{,}5\}\}$]
+                    [$\{\{1\text{,}2\text{,}3\text{,}4\}\text{,}\{5\}\}$]
+                ]
+                [$\{\{1\text{,}2\text{,}3\}\text{,}\{4\}\}$
+                    [$\{\{1\text{,}2\text{,}3\text{,}5\}\text{,}\{4\}\}$]
+                    [$\{\{1\text{,}2\text{,}3\}\text{,}\{4\text{,}5\}\}$]
+                    [$\{\{1\text{,}2\text{,}3\}\text{,}\{4\}\text{,}\{5\}\}$]
+                ]
+            ]
+            [$\{\{1\text{,}2\}\text{,}\{3\}\}$
+                [$\{\{1\text{,}2\text{,}4\}\text{,}\{3\}\}$
+                    [$\{\{1\text{,}2\text{,}4\text{,}5\}\text{,}\{3\}\}$]
+                    [$\{\{1\text{,}2\text{,}4\}\text{,}\{3\text{,}5\}\}$]
+                    [$\{\{1\text{,}2\text{,}4\}\text{,}\{3\}\text{,}\{5\}\}$]
+                ]
+                [$\{\{1\text{,}2\}\text{,}\{3\text{,}4\}\}$
+                    [$\{\{1\text{,}2\text{,}5\}\text{,}\{3\text{,}4\}\}$]
+                    [$\{\{1\text{,}2\}\text{,}\{3\text{,}4\text{,}5\}\}$]
+                    [$\{\{1\text{,}2\}\text{,}\{3\text{,}4\}\text{,}\{5\}\}$]
+                ]
+                [$\{\{1\text{,}2\}\text{,}\{3\}\text{,}\{4\}\}$
+                    [$\{\{1\text{,}2\text{,}5\}\text{,}\{3\}\text{,}\{4\}\}$]
+                    [$\{\{1\text{,}2\}\text{,}\{3\text{,}5\}\text{,}\{4\}\}$]
+                    [$\{\{1\text{,}2\}\text{,}\{3\}\text{,}\{4\text{,}5\}\}$]
+                    [$\{\{1\text{,}2\}\text{,}\{3\}\text{,}\{4\}\text{,}\{5\}\}$]
+                ]
+            ]
+        ]
+        [$\{\{1\}\text{,}\{2\}\}$
+            [$\{\{1\text{,}3\}\text{,}\{2\}\}$
+                [$\{\{1\text{,}3\text{,}4\}\text{,}\{2\}\}$
+                    [$\{\{1\text{,}3\text{,}4\text{,}5\}\text{,}\{2\}\}$]
+                    [$\{\{1\text{,}3\text{,}4\}\text{,}\{2\text{,}5\}\}$]
+                    [$\{\{1\text{,}3\text{,}4\}\text{,}\{2\}\text{,}\{5\}\}$]
+                ]
+                [$\{\{1\text{,}3\}\text{,}\{2\text{,}4\}\}$
+                    [$\{\{1\text{,}3\text{,}5\}\text{,}\{2\text{,}4\}\}$]
+                    [$\{\{1\text{,}3\}\text{,}\{2\text{,}4\text{,}5\}\}$]
+                    [$\{\{1\text{,}3\}\text{,}\{2\text{,}4\}\text{,}\{5\}\}$]
+                ]
+                [$\{\{1\text{,}3\}\text{,}\{2\}\text{,}\{4\}\}$
+                    [$\{\{1\text{,}3\text{,}5\}\text{,}\{2\}\text{,}\{4\}\}$]
+                    [$\{\{1\text{,}3\}\text{,}\{2\text{,}5\}\text{,}\{4\}\}$]
+                    [$\{\{1\text{,}3\}\text{,}\{2\}\text{,}\{4\text{,}5\}\}$]
+                    [$\{\{1\text{,}3\}\text{,}\{2\}\text{,}\{4\}\text{,}\{5\}\}$]
+                ]
+            ]
+            [$\{\{1\}\text{,}\{2\text{,}3\}\}$
+                [$\{\{1\text{,}4\}\text{,}\{2\text{,}3\}\}$
+                    [$\{\{1\text{,}4\text{,}5\}\text{,}\{2\text{,}3\}\}$]
+                    [$\{\{1\text{,}4\}\text{,}\{2\text{,}3\text{,}5\}\}$]
+                    [$\{\{1\text{,}4\}\text{,}\{2\text{,}3\}\text{,}\{5\}\}$]
+                ]
+                [$\{\{1\}\text{,}\{2\text{,}3\text{,}4\}\}$
+                    [$\{\{1\text{,}5\}\text{,}\{2\text{,}3\text{,}4\}\}$]
+                    [$\{\{1\}\text{,}\{2\text{,}3\text{,}4\text{,}5\}\}$]
+                    [$\{\{1\}\text{,}\{2\text{,}3\text{,}4\}\text{,}\{5\}\}$]
+                ]
+                [$\{\{1\}\text{,}\{2\text{,}3\}\text{,}\{4\}\}$
+                    [$\{\{1\text{,}5\}\text{,}\{2\text{,}3\}\text{,}\{4\}\}$]
+                    [$\{\{1\}\text{,}\{2\text{,}3\text{,}5\}\text{,}\{4\}\}$]
+                    [$\{\{1\}\text{,}\{2\text{,}3\}\text{,}\{4\text{,}5\}\}$]
+                    [$\{\{1\}\text{,}\{2\text{,}3\}\text{,}\{4\}\text{,}\{5\}\}$]
+                ]
+            ]
+            [$\{\{1\}\text{,}\{2\}\text{,}\{3\}\}$
+                [$\{\{1\text{,}4\}\text{,}\{2\}\text{,}\{3\}\}$
+                    [$\{\{1\text{,}4\text{,}5\}\text{,}\{2\}\text{,}\{3\}\}$]
+                    [$\{\{1\text{,}4\}\text{,}\{2\text{,}5\}\text{,}\{3\}\}$]
+                    [$\{\{1\text{,}4\}\text{,}\{2\}\text{,}\{3\text{,}5\}\}$]
+                    [$\{\{1\text{,}4\}\text{,}\{2\}\text{,}\{3\}\text{,}\{5\}\}$]
+                ]
+                [$\{\{1\}\text{,}\{2\text{,}4\}\text{,}\{3\}\}$
+                    [$\{\{1\text{,}5\}\text{,}\{2\text{,}4\}\text{,}\{3\}\}$]
+                    [$\{\{1\}\text{,}\{2\text{,}4\text{,}5\}\text{,}\{3\}\}$]
+                    [$\{\{1\}\text{,}\{2\text{,}4\}\text{,}\{3\text{,}5\}\}$]
+                    [$\{\{1\}\text{,}\{2\text{,}4\}\text{,}\{3\}\text{,}\{5\}\}$]
+                ]
+                [$\{\{1\}\text{,}\{2\}\text{,}\{3\text{,}4\}\}$
+                    [$\{\{1\text{,}5\}\text{,}\{2\}\text{,}\{3\text{,}4\}\}$]
+                    [$\{\{1\}\text{,}\{2\text{,}5\}\text{,}\{3\text{,}4\}\}$]
+                    [$\{\{1\}\text{,}\{2\}\text{,}\{3\text{,}4\text{,}5\}\}$]
+                    [$\{\{1\}\text{,}\{2\}\text{,}\{3\text{,}4\}\text{,}\{5\}\}$]
+                ]
+                [$\{\{1\}\text{,}\{2\}\text{,}\{3\}\text{,}\{4\}\}$
+                    [$\{\{1\text{,}5\}\text{,}\{2\}\text{,}\{3\}\text{,}\{4\}\}$]
+                    [$\{\{1\}\text{,}\{2\text{,}5\}\text{,}\{3\}\text{,}\{4\}\}$]
+                    [$\{\{1\}\text{,}\{2\}\text{,}\{3\text{,}5\}\text{,}\{4\}\}$]
+                    [$\{\{1\}\text{,}\{2\}\text{,}\{3\}\text{,}\{4\text{,}5\}\}$]
+                    [$\{\{1\}\text{,}\{2\}\text{,}\{3\}\text{,}\{4\}\text{,}\{5\}\}$]
+                ]
+            ]
+        ]
+    ]
+\end{forest}
+}
+
+\section{Graph Counting}
+\subsection*{Problem Statement}
+Count the number of graphs on $[n]$ vertices. Count the number of relations from $[n]$ to $[m]$. Comment on similarities between the two (if you found any).
+
+\subsection*{Solution}
+
+An edge in an undirected graph of $[n]$ vertices is a set of two elements (since order doesn't matter on an undirected graph). There are $n$ ways to choose the first element and $n-1$ ways to choose the second element for an edge. We then divide by 2 due to the quotient principle because the order of the two elements in our set does not matter. Thus there are $\frac{n (n-1)}{2}$ possible edges. A graph on $[n]$ consists of a subset of edges from among all possible edges on $[n]$. Each edge can either be present or not present in the graph, so by the product principle there are $2^{\frac{n (n-1)}{2}}$ graphs on $[n]$.\\
+
+A relation on $[n] \rightarrow [m]$ is a set of lists $(a,b) \mid a \in n \text{ and } b \in m$. There are $nm$ such lists by the product principle. Each list is either present or not present in a given set, so there are $2^{nm}$ possible relations on $[n] \rightarrow [m]$.\\
+
+A graph on $[n]$ is a relation on $[n] \rightarrow [n]$ with the additional restriction that 1) none of the lists can contain the same element twice and 2) $(b, a)$ is present in the set if and only if $(a, b)$ is present in the set. The first restriction forbids loops while the second restriction makes the graph undirected.
+
+\section{Balloon Game}
+\subsection*{Problem Statement}
+Consider the following game: Alice and Bob start with a shared pile of $n \geq 1$ of water balloons, and Alice goes first. On each turn, if you start with no balloons, you lose. If you have at least 1 balloon, you must throw 1, 2, or 3 balloons at your opponent. When does Alice have a winning strategy? (i.e. a strategy that guarantees she will eventually win regardless of what Bob does). Prove the strategy works by strong induction.
+\subsection*{Solution}
+
+Alice has a winning strategy for all $n$ not divisible by 4.
+
+\begin{proof}
+We prove this by strong induction on the following statement: $p(n)=$ \say{Assuming optimal play by both players, if there are $n$ balloons remaining then the current player will lose if $n$ is divisible by 4, otherwise they will win.}
+
+We are given that the current player will lose if there are $n=0$ balloons remaining, so $p(0)$ is true because 0 is divisible by 4. For $n=$ 1, 2 and 3, the current player can throw all the remaining balloons which forces the other player to lose, so $p(n)$ is true for $n=$ 1, 2, and 3. For $n \geq 4$, if $n$ is divisible by 4 then the current player can throw $k=$ 1, 2, or 3 balloons, but in all of those cases the other player will have $n-k$ balloons remaining where $n-k$ is not divisible by 4, thus the other player will win because $p(n-k)$ has already been proven to be a win if $n-k$ is not divisible by 4. If $n \geq 4$ is not divisible by 4, then $n = 4a + b$ where $a$ and $b$ are positive integers and $b \in \{1,2,3\}$. In that case the current player can throw $b$ balloons to win since they will leave the other player with $n-b$ balloons, we have already shown that $p(n-b)$ is true, and $n-b$ is divisible by four which means it is a loss for the other player.
+\end{proof}
+
+
+\section{Quotient Principle}
+\subsection*{Problem Statement}
+Explicitly use the quotient principle to find that the binomial coefficient $\binom{n}{k}$ is $\frac{n!}{k!(n-k)!}$ by counting the number of ways to get \emph{lists} of $k$ elements from $[n]$. Don't be sketchy.
+\subsection*{Solution}
+
+\begin{proof}
+Let $S$ be the set of $k$-length lists that can be formed from items in $[n]$ without duplicate items in any one list. There are $n$ choices for the first element in a $k$-length list, $n-1$ choices for the second element, etc. down to $n -k + 1$ choices for the last element. This gives a total of $\frac{n!}{(n-k)!}$ $k$ such lists in $S$. We now partition $S$ such that each partition consists of orderings of a different set of $k$ elements. Consider the lists in a single partition. There are $k$ choices for which element comes first, $k-1$ choices for which element comes second, etc, giving a total of $k!$ orderings by the product principle. Therefore each partition of $S$ contains $k!$ lists. Therefore since we have partitioned a set of size $\frac{n!}{(n-k)!}$ into blocks of size $k!$, there are $\frac{n!}{k!(n-k)!}$ such blocks according to the quotient principle. Each partition is a subset of $k$ elements from $S$. Thus $\binom{n}{k} = \frac{n!}{k!(n-k)!}$.
+\end{proof}
+
+\section{Counting Flags}
+\subsection*{Problem Statement}
+Count the number of ways to put 5 distinguishable flags on 3 distinguishable poles. On each pole, the only thing that matters is the order of the flags (top to bottom) on each pole. For example, one configuration is to have flags 1, 5, 2 on pole 1 (in that order), no flags on pole 2, and flags 4, 3 on pole 3. Explore for general numbers of flags and poles.
+\subsection*{Solution}
+
+There are 2520 ways to place five distinguishable flags onto three distinguishable poles such that all flags are on a pole and the order of flags on a pole matters. More generally, there are $\frac{(n+k-1)!}{(k-1)!}$ ways to place $n$ flags onto $k$ poles.
+
+\begin{proof}
+Let $f_1, f_2, \ldots, f_n$ denote the $n$ flags, and let $p_1, p_2, \ldots, p_k$ denote the $k$ poles. A pole is equivalent to a list of flags since the order of flags on a pole matters. For example $(f_1, f_2)$ is distinct from $(f_2, f_1)$. There is a bijection between the $k$ lists and a single list containing all flags and $k-1$ separators. For example with $k=3$ poles and $n=5$ flags, the arrangement $p_1 = (f_1, f_5, f_2), p_2 = (), p_3 = (f_4, f_3)$ is equivalent to the list $(f_1, f_5, f_2, \circ, \circ, f_4, f_3)$ where $\circ$ is a separator indicating the end of the current pole and the start of a new pole. If these separators were distinguishable, the number of arrangements would be $(n+k-1)!$. Since the separators are not distinguishable, we use the quotient principle and divide by $(k-1)!$ orderings of the separators, giving a total count of 
+\[
+\frac{(n+k-1)!}{(k-1)!}
+\]
+
+\end{proof}
+
+\section {Time Spent}
+
+I spent about 8 hours on this problem set. For a lot of that time I was stuck on the counting flags problem until we went over a similar problem in class which gave me the idea for the separators. The rest of the problems were pretty straightforward.
+
+\end{document}

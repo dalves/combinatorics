@@ -1,0 +1,186 @@
+\documentclass[12pt]{article}
+\author{David Alves}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{dirtytalk}
+\usepackage{forest}
+\usepackage{skak}
+\usepackage{tikz}
+\usepackage{titling}
+
+\title{Math 142 Problem Set 2}
+\author{David Alves}
+\date{2016-09-06}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\begin{center}
+\Large \thetitle \\
+\large \theauthor \\
+\thedate
+\end{center}
+
+\subsection*{Sources}
+
+    \begin{itemize}
+    \item Notes from lecture and my own memory from Math 42 for solving the problems
+    \item http://tex.stackexchange.com and https://www.sharelatex.com for help with \LaTeX
+    \end{itemize}
+
+\section{Chess Piece Ordering}
+
+\subsection*{Problem Statement}
+Suppose we play chess where the positions of all 16 pawns are the same, but each player permutes the 8 pieces behind his/her pawns in any way they want. How many possible starting positions of the game are there? (the two knights, two rooks, etc are indistinguishable). Optional: How would you choose to place your places? 
+\subsection*{Solution}
+
+    There are eight pieces on each side, so if all pieces were distinct there would be $8!=40,320$ possible orderings for each player by the product principle. However, the two knights, two rooks, and two bishops are each interchangeable, so by the quotient principle we have $\frac{8!}{2!2!2!}=5,040$ possible orderings on each side. For each ordering that player 1 chooses, player 2 can choose any ordering, so by the product principle we have $5,040^2=25,401,600$ total board configurations.
+
+    \paragraph{Optional}
+    I would use this configuration: 
+    \newline
+    \newgame
+    \fenboard{8/8/8/8/8/8/PPPPPPPP/BNRRQNKB w - - 0 1}
+    
+    \begin{center}
+    \showboard
+    \end{center}
+    
+    Bishops are on the long diagonals to get control of the center. The rooks and queen are on the center files for the same reason. The king is already in \say{castled} position for safety and all three pawns in front of the king are protected by at least one piece other than the king.
+    
+    
+
+\section{Subset Pairs}
+\subsection*{Problem Statement}
+How many pairs $(A_1, A_2)$ of subsets of $[n]$ are there such that $A_1 \cap A_2 = \emptyset$?
+\subsection*{Solution}
+An ordered pair $(A_1, A_2)$ such that $A_1 \cap A_2 = \emptyset$ consists of an assignment of each element in $[n]$ to either $A_1$, $A_2$, or neither. (An element cannot be in both since $A_1$ and $A_2$ are disjoint). This gives three possibilities for each element, for a total of $3^n$ ordered pairs.
+
+\section{Function Counting}
+\subsection*{Problem Statement}
+Suppose the domain is $[m]$ and the codomain is $[n]$ for $n,m \in \mathbb{N}$. Count the number of injective, surjective, and bijective functions on $[m] \rightarrow [n]$.
+\subsection*{Solution}
+\subsubsection*{Injective}
+
+For $n < m$, no injective functions exist by the pigeonhole principle since two values in $[m]$ would have to  map to the the same value in $[n]$, violating the definition of injective. For $n \geq m$, there are $2^m$ elements in the domain and $2^n$ elements in the codomain. This gives $(2^{n})$ choices for the first element in the domain, $(2^{n}-1)$ choices for the second element, etc. Multiplying these choices due to the product principle for all $2^{m}$ elements of the domain gives 
+    $$(2^{n}) * (2^{n}-1) * (2^{n}-2) * \ldots * (2^{n} - 2^m + 1)$$
+    Which is equivalent to $$\frac{2^n!}{2^{n-m}!}$$
+    
+\subsubsection*{Surjective}
+For $n > m$, no surjective functions exist by the pigeonhole principle (since each element of the domain corresponds with at most one element of the codomain, there must be 1 or more elements of the codomain which do not correspond with any elements of the domain if $n > m$). Unfortunately I haven't been able to figure out a way to count the surjective functions when $n \leq m$. \emph{(Note: This is defined as $S(n)$, but we didn't cover that until after this homework was due.)}
+
+\subsubsection*{Bijective}
+
+If $n < m$ or $n > m$, no bijective functions exist because of the pigeonhole principle (explained under injective / surjective above). For $n = m$, There are $2^n$ elements of both the domain and the codomain. Without loss of generality, number them 1 to $2^n$. We then have $2^n$ choices for $f(1)$, $2^n-1$ choices for $f(2)$, \ldots, 1 choice for $f(2^n)$. This gives a total of $2^n!$ assignments, so there are $2^n!$ bijective functions on $[n] \rightarrow [n]$.
+
+\section{Basketball Team Counting}
+
+\subsection*{Problem Statement}
+If you have 14 copies of Miguel Jordan (who can play all positions), two clones of Shackle O'Neil (who can only play center) and three clones of Stephan Curry (who can play either guard position) and you need a center, a power forward, a small forward, a point guard, and a shooting guard (all considered different positions) to make a team, how many teams can you make?
+\subsection*{Solution}
+
+The final answer is 153,348. The following is a tree representation of the calculation. Nodes labeled \say{OR} are disjoint and use the sum principle to add their children, while nodes labeled \say{AND} use the product principle and multiply their children. A number in parenthesis indicates the number of possible choices for that assignment. 
+
+\begin{center}
+\begin{forest}
+  for tree={
+    grow'=0,
+    child anchor=west,
+    parent anchor=south,
+    anchor=west,
+    calign=first,
+    edge path={
+      \noexpand\path [draw, \forestoption{edge}]
+      (!u.south west) +(7.5pt,0) |- node[fill,inner sep=1.25pt] {} (.child anchor)\forestoption{edge label};
+    },
+    inner ysep=1.75pt,
+    before typesetting nodes={
+      if n=1
+        {insert before={[,phantom]}}
+        {}
+    },
+    fit=band,
+    before computing xy={l=15pt},
+  }
+[OR
+    [AND
+        [Center is an SN (2)]
+        [OR
+            [AND
+                [SG is a SC (3)]
+                [OR
+                    [PG is an SC (2) AND SF is an MJ (14) AND PF is an MJ (13) \equal 364]
+                    [PG is an MJ (14) AND SF is an MJ (13) AND PF is an MJ (12) \equal 2184]
+                ]
+            ]
+            [AND
+                [SG is an MJ (14)]
+                [OR
+                    [PG is an SC (3) AND SF is an MJ (13) AND PF is an MJ (12) \equal 468]
+                    [PG is an MJ (13) AND SF is an MJ (12) AND PF is an MJ (11) \equal 1716]
+                ]
+            ]
+        ]    
+    ]
+    [AND 
+        [Center is an MJ (14)]
+        [OR
+            [AND
+                [SG is an SC (3)]
+                [OR
+                    [PG is an SC (2) AND SF is an MJ (13) AND PF is an MJ (12) \equal 312]
+                    [PG is an MJ (13) AND SF is an MJ (12) AND PF is an MJ (11) \equal 1716]
+                ]
+            ]
+            [AND
+                [SG is an MJ (13)]
+                [OR
+                    [PG is an SC (3) AND SF is an MJ (12) AND PF is an MJ (11) \equal 396]
+                    [PG is an MJ (12) AND SF is an MJ (11) AND PF is an MJ (10) \equal 1320]
+                ]
+            ]    
+        ]
+    ]
+]
+\end{forest}
+\begin{tabular}{ |p{1cm}|p{3cm}|  }
+ \hline
+ \multicolumn{2}{|c|}{\textbf{Key}} \\
+ \hline
+ PG & Point Guard \\
+ SG & Shooting Guard \\
+ PF & Power Forward \\
+ SF & Small Forward \\
+ \hline
+ SN & Shackle O'Neil \\
+ MJ & Miguel Jordan \\
+ SC & Stephan Curry \\
+ \hline
+\end{tabular}
+
+\end{center}
+Evaluating this tree gives 
+\begin{multline*}
+\Biggl(2*\Bigl(3*(364 + 2184)\Bigl)+\Bigl(14*(468+1716)\Bigl)\Biggr)+\\\Biggl(14*\Bigl(3*(312+1716)\Bigr)+\Bigl(13*(396+1320)\Bigr)\Biggr)=153,348
+\end{multline*}
+
+
+\section{Function Classification}
+\subsection*{Problem Statement}
+Let $Y$ be the set of subsets of $[n]$. Is the following function an injection? Surjection? Bijection? For each subset $X \in [n]$, let $f(X)$ be the set of all elements in $[n]$ that are \emph{not} in $X$.
+\subsection*{Solution}
+
+$f$ is a bijection because it is both injective and surjective. 
+\subsubsection*{Injective Proof}
+
+If $f$ is not injective, there exists some $X$ and $X'$ such that $X \neq X'$ and $f(X) = f(X')$. There must be some member m of Y for which $m \in X \neq m \in X'$ since $X \neq X'$. However, this means that $m \in f(X) \neq m \in f(X')$ (since membership on both sides is negated), which contradicts the statement that $f(X) = f(X')$. Therefore $f(X)$ is injective.
+
+\subsubsection*{Surjective Proof}
+If $f(X)$ is not surjective, there must be some $N \subset Y$ for which there is no $X \subset Y$ such that $f(X) = N$.
+N consists of an assignment of each element in Y to be in the $Y$ or not in $Y$. We can construct $N'$ such that each element of $Y$ that is in $N$ is not in $N'$, and each element of $Y$ that is not in $N$ is in $N'$. This gives $N' \subset Y$ and $f(N') = N$, which contradicts our statement that there is no $X$ such that $X \subset Y$ and $f(X) = N$. Therefore $f(X)$ is surjective.
+
+
+\section{Time Spent}
+I spent about 12 hours on this homework assignment. Roughly eight of those were spent doing the problems while the rest were spent learning \LaTeX.
+\end{document}
