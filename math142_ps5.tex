@@ -49,7 +49,7 @@ How many triangles can be made with vertices from a $4\times4$ square grid of po
 \begin{proof}
     
 
-In a $4 \times 4$ grid there are 16 points. A valid triangle is formed by three distinct noncolinear points. There are $\binom{16}{4} = 560$ ways to choose the three distinct points for a triangle. We know that 560 is equal to the set of valid triangles plus the set of triangles which contain three colinear points by the sum principle. Therefore we can subtract the number of colinear triangles from 560 to determine the number of valid triangles.
+In a $4 \times 4$ grid there are 16 points. A valid triangle is formed by three distinct noncolinear points. There are $\binom{16}{3} = 560$ ways to choose the three distinct points for a triangle. We know that 560 is equal to the set of valid triangles plus the set of triangles which contain three colinear points by the sum principle. Therefore we can subtract the number of colinear triangles from 560 to determine the number of valid triangles.
 
     The number of colinear triangles is equal to the number of colinear triangles on rows plus the number of colinear triangles on columns plus the number of colinear triangles on NW-SE diagonals plus the number of colinear triangles on NE-SW diagonals. 
     Each of the four rows contains $\binom{4}{3} = 4$ ways of choosing three colinear points, giving a total of 16 colinear triangles in the rows. By symmetry, there are also 16 colinear triangles in columns. The NE-SW long diagonals also has $\binom{4}{3} = 4$ ways of choosing three colinear points. There are two length-3 NE-SW diagonals, shown here: 
