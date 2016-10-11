@@ -27,6 +27,7 @@
     \begin{itemize}
     \item Notes from lecture and my own memory from Math 42 for solving the problems
     \item http://tex.stackexchange.com and https://www.sharelatex.com for help with \LaTeX
+    \item Wikipedia articles on equivalence relations.
     \end{itemize}
 
 \section{Equivalence Relations and Partitions}
@@ -39,9 +40,9 @@ Show that there is a bijection between the set of (equivalence relations on a se
 
 Let $P$ be a partition of $A$ and let $p_1, p_2, \ldots, p_n (n\geq 1)$ refer to the subsets in that partition. By the definition of a partition, each element of $A$ is contained in exactly one subset of $P$. Let $g(e) \in p_1, p_2, \ldots, p_n$ denote the subset that element $e$ is in.
 
-Let $f(P)$ be the set of ordered pairs $\{(a, b) : g(a) = g(b)\}$. Note that $a$ and $b$ can be the same element in this definition. $f(P)$ is an equivalence relation, and $f$ is a bijection because it is both an injection and a surjection. Therefore there is a bijection between the set of (equivalence relations on a set $A$) and the set of (partitions of $A$)
+Let $f(P)$ be the set of ordered pairs $\{(a, b) : g(a) = g(b)\}$. Note that $a$ and $b$ can be the same element in this definition. $f(P)$ is an equivalence relation, and $f$ is a bijection because it is both an injection and a surjection. Therefore there is a bijection between the set of (equivalence relations on a set $A$) and the set of (partitions of $A$).
 
-\subsubsection*{$f(P)$ is an Equivalence Relation}
+\subsubsection*{Proof that $f(P)$ is an Equivalence Relation}
 \begin{proof}
 $f(P)$ is relation on $A\times A$ because it is a subset of $A\times A$ and satisfies the three requirements of an equivalence relation as follows:
 \begin{itemize}
@@ -51,15 +52,18 @@ $f(P)$ is relation on $A\times A$ because it is a subset of $A\times A$ and sati
 \end{itemize}
 
 \end{proof}
-\subsubsection*{$f$ is an Injection}
+\subsubsection*{Proof that $f$ is an Injection}
 \begin{proof}
-
+Suppose that $f$ is not an injection. Then there must be some two partitions $a,b$ of $A$ such that $f(a) = f(b)$ and $a \neq b$. Since $a \neq b$, there must be some two elements $e_1, e_2$ such that they are in the same group in one partition and in different groups in the other partition. Without loss of generality, suppose $e_1, e_2$ are in the same group in $a$ and different groups in $b$. Then $(a,b) \in f(a)$ and $(a,b) \notin f(b)$, which contradicts our assumption. Therefore our assumption is incorrect and $f$ must be an injection.
 \end{proof}
-\subsubsection*{$f$ is a Surjection}
+\subsubsection*{Proof that $f$ is a Surjection}
 \begin{proof}
-    
-\end{proof}
+Suppose that $f$ is not a surjection. Then there must be some equivalence relation $R$ such that this is no corresponding partition $p$ where $f(p) = R$. Let two members $a, b \in A$ be part of the same \emph{equivalence class} if $(a, b) \in R$. Select an element $e_1 \in A$. Let $e_1, \ldots, e_k \in R$ be the $k$ members of $e_1$'s \emph{equivalence class}. We know that $(e_1, e_1) \in R$ because $R$ satisfies the reflexive property. $(e_1, e_i), (e_1, e_j) \in R: i,j \leq k$ by definition, therefore $(e_i, e_1) \in R: i \leq k$ due to the symmetric property and $(e_i, e_j) \in R: i,j \leq k$ due to the transitive property. Therefore every edge between elements in $e_1, \ldots, e_k$ exists. 
 
+There cannot be any edge $(f, e_i)$ or $(e_i, f) \in R$ such that $f \notin e_1, e_2, \ldots, e_k$ because $(e_1, f)$ would exist by the transitive property, therefore $f$ would be a member of $e_1$'s \emph{equivalence class}.
+
+We can therefore construct a partition $p$ of $A$ such that $e_1, e_2, \ldots, e_k$ are in the same group. We know that all edges $(e_i, e_j): 1 \leq i, j \leq k$ exist in $f(p)$ and no edge $(f, e_i)$ or $(e_i, f)$ exists by the definition of $f$. Since we chose $e_1$ arbitrarily the same logic applies for all other groups. Therefore there exists a partition $p$ such that $f(p) = R$, which contradicts our assumption that $f$ is not a surjection. Therefore our assumption is false and $f$ is a surjection.
+\end{proof}
 
 
 \section{Amusement Park Counting}
@@ -125,7 +129,7 @@ Below is an illustration to show why. $\sum_{k=0}^{n}\binom{n}{k}$ for alternate
 % Which one is more rare for a normal deck?
 % Give a deck where the rarity is switched
 
-With $n$ ranks and $k$ suits, there are $something$ ways to make 3-of-a-kind and $something$ ways to make two pair. 
+With $n$ ranks and $k$ suits, there are $nk^2\binom{k}{3}\binom{n-1}{2}$ ways to make 3-of-a-kind and $(n-2)k\binom{n}{2}\binom{k}{2}^2$ ways to make two pair. 
 
 \subsection*{Three-of-a-kind}
 
@@ -134,11 +138,13 @@ Three-of-a-kind consists of three cards with identical rank and two cards which 
 nk^2\binom{k}{3}\binom{n-1}{2}
 \]
 
+\subsection*{Two Pair}
 For two pair, there are $\binom{n}{2}$ ways to choose the ranks for the two pairs and $n-2$ possible ranks for the remaining card. There are $\binom{k}{2}$ ways to select the suits for each of the two pairs. Finally there are $k$ possible suits for the remaining card. Therefore the total number of unique two pair hands is
 \[
 (n-2)k\binom{n}{2}\binom{k}{2}^2
 \]
 
+\subsection*{Rarity}
 Plugging in the numbers for a normal ($n=13, k=4$) deck gives 10816 possible three-of-a-kind hands and 123552 possible two pair hands, therefore three-of-a-kind is more rare.
 
 The rarity is switched for a deck with $n=3$ and $k=10$ because there are 108,000 unique 3-of-a-kind hands and 60,750 unique two pair hands.
@@ -150,10 +156,9 @@ The rarity is switched for a deck with $n=3$ and $k=10$ because there are 108,00
 
 % Prove that the number of non-fixed points in an involution is even
 \begin{proof}
-For each non-fixed element, we have $f(a) = a', a \neq a'$. Since $f$ is an involution, we also know that $f(a') = a$. We can remove $a$ and $a'$ from the domain and codomain of $f$ to construct $f'$. Repeatedly applying the same process we will eventually reduce our function to one consisting of only zero or more fixed elements. After this process is complete we will have removed two elements from the domain $k$ times, meaning $2k$ total non-fixed elements existed. Therefore the the number of non-fixed elements in $f$ is even.\end{proof}
+For each non-fixed element, we have $f(a) = a', a \neq a'$. Since $f$ is an involution, we also know that $f(a') = a$. We can remove $a$ and $a'$ from the domain and codomain of $f$ respectively to construct $f'$. Repeatedly applying the same process we will eventually construct a function consisting of only zero or more fixed elements. After this process is complete we will have removed two elements from the domain $k$ times, meaning $2k$ total non-fixed elements existed. Therefore the the number of non-fixed elements in $f$ is even.\end{proof}
 
 \subsection*{Odd divisors}
-
 
 Note: I'm assuming that the problem is asking for positive divisors although that was not explicitly stated.
 
@@ -164,6 +169,6 @@ For each element $e$ of $D$, there exists an element $e'$ of $D$ such that $e*e'
 \end{proof}
 \section{Time Spent}
 
-I spent about six hours on this assignment. I didn't have enough time to finish all the problems due to lots of other things going on this week. :( None of them stumped me for too long, although I always have a hard time knowing how rigorous I should be and how much I'm allowed to just skip over without explicitly proving.
+I spent about ten hours on this assignment. Most of them were pretty straightforward but \#1 took a very long time to do rigorously. (Maybe there's some clever shortcut?)
 
 \end{document}
