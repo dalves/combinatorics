@@ -63,16 +63,16 @@ Suppose the domain is $[m]$ and the codomain is $[n]$ for $n,m \in \mathbb{N}$. 
 \subsection*{Solution}
 \subsubsection*{Injective}
 
-For $n < m$, no injective functions exist by the pigeonhole principle since two values in $[m]$ would have to  map to the the same value in $[n]$, violating the definition of injective. For $n \geq m$, there are $2^m$ elements in the domain and $2^n$ elements in the codomain. This gives $(2^{n})$ choices for the first element in the domain, $(2^{n}-1)$ choices for the second element, etc. Multiplying these choices due to the product principle for all $2^{m}$ elements of the domain gives 
-    $$(2^{n}) * (2^{n}-1) * (2^{n}-2) * \ldots * (2^{n} - 2^m + 1)$$
-    Which is equivalent to $$\frac{2^n!}{2^{n-m}!}$$
+For $n < m$, no injective functions exist by the pigeonhole principle since two values in $[m]$ would have to  map to the the same value in $[n]$, violating the definition of injective. This gives $n$ choices for $f(1)$, $n-1$ choices for the f(2), etc. Multiplying these choices due to the product principle for all $m$ elements of the domain gives 
+    $$(n) \times (n-1) \times (n-2) \times \ldots \times (n - m + 1)$$
+    Which is equivalent to $$\frac{n!}{(n-m)!}$$
     
 \subsubsection*{Surjective}
 For $n > m$, no surjective functions exist by the pigeonhole principle (since each element of the domain corresponds with at most one element of the codomain, there must be 1 or more elements of the codomain which do not correspond with any elements of the domain if $n > m$). Unfortunately I haven't been able to figure out a way to count the surjective functions when $n \leq m$. \emph{(Note: This is defined as $S(n)$, but we didn't cover that until after this homework was due.)}
 
 \subsubsection*{Bijective}
 
-If $n < m$ or $n > m$, no bijective functions exist because of the pigeonhole principle (explained under injective / surjective above). For $n = m$, There are $2^n$ elements of both the domain and the codomain. Without loss of generality, number them 1 to $2^n$. We then have $2^n$ choices for $f(1)$, $2^n-1$ choices for $f(2)$, \ldots, 1 choice for $f(2^n)$. This gives a total of $2^n!$ assignments, so there are $2^n!$ bijective functions on $[n] \rightarrow [n]$.
+If $n < m$ or $n > m$, no bijective functions exist because of the pigeonhole principle (explained under injective / surjective above). For $n = m$, There are $n$ elements of both the domain and the codomain. We have $n$ choices for $f(1)$, $n-1$ choices for $f(2)$, \ldots, 1 choice for $f(n)$. This gives a total of $n!$ assignments, so there are $n!$ bijective functions on $[n] \rightarrow [n]$.
 
 \section{Basketball Team Counting}
 
