@@ -89,14 +89,14 @@ by \theauthor \\
     \twelverow{$a$ balls\\(indist.)\bigskip\\$b$ bins\\ (dist.)} & 
     \twelvecell{\multichoose{b}{a}=\binom{a+b-1}{a}}{Use $\star$ for a ball and $\vert$ for a divider between bins. There are $b-1$ dividers needed so you have a sequence of $a+b-1$ elements of which $a$ are balls, giving $\binom{a+b-1}{a}$. For example, $(0, 0, 3, 1)$ is $\vert\vert\star\star\star\vert\star$}&
     \twelvecell{\binom{b}{a}}{Number of ways to pick a subset of size $a$ from a set of size $b$. (We are picking $a$ of the bins to contain a single ball while the rest remain empty).}&
-    \twelvecell{\binom{a-1}{a-b}}{Use the same stars-and-bars encoding as for general, except since each bin must have one, we can it out of the encoding. For example, $(3,1,2)$ is encoded as $\star\star\vert\vert\star$}
+    \twelvecell{\binom{a-1}{a-b}}{Use the same stars-and-bars encoding as for general, except since each bin must have one ball, we can leave it out of the encoding. For example, $(3,1,2)$ is encoded as $\star\star\vert\vert\star$}
     \finishrow 
  
     \twelverow{$a$ balls\\(dist.)\bigskip\\$b$ bins\\ (indist.)} & 
     \twelvecell{\sum_{i=0}^{b} S(a,i)}{$S(a,i)$ is the number of ways to put $a$ balls into $i$ bins such that all bins contain at least one ball. Sum over all values of $i$ to get the total number of ways to fill $b$ bins without the \say{all bins used} requirement}&
     \twelvecell{
         \begin{aligned}    
-            b\geq 1: 1\\
+            b\geq a: 1\\
             b<a: 0
         \end{aligned}
     }{One way if there are enough bins, otherwise zero}&
@@ -107,17 +107,68 @@ by \theauthor \\
     \twelvecell{\sum_{i=0}^{b} P(a,i)}{$P(a,i)$ is the number of ways to put $a$ balls into $i$ bins such that all bins contain at least one ball. We then sum over all values of $i$ from 0 to $b$ to get the total number of ways to fill $b$ bins without the \say{all bins used} requirement}&
     \twelvecell{
         \begin{aligned}    
-            b\geq 1: 1\\
-            b<a: 0
+            b\geq a: 1\\
+            b < a: 0
         \end{aligned}
     }{One way if there are enough bins, otherwise zero}&
     \twelvecell{P(a,b)}{This is defined to be the number of ways to place $a$ indistinguishable balls into $b$ indistinguishable bins. Note that this is also the number of ways to partition an integer $a$ into the sum of $b$ integers and the number of Young Diagrams with $a$ boxes and $b$ rows.}
 \end{tabular}
 }
+\section*{Pascal's Triangle}
+\begin{center}
+\begin{tikzpicture}[
+    scale=1,
+    tcancel/.append style={draw=#1, cross out, inner sep=1pt}
+]
+\node at ( 0, 0) {1};
+\node at (-1,-1) {1};
+\node at ( 1,-1) {1};
+\node at (-2,-2) {1};
+\node at ( 0,-2) {2};
+\node at ( 2,-2) {1};
+\node at (-3,-3) {1};
+\node at (-1,-3) {3};
+\node at ( 1,-3) {3};
+\node at ( 3,-3) {1};
+\node at ( 0, -4.5) {$\vdots$};
+\node at (-6, -6) {1};
+\node at (-4.5, -6) {$\ldots$};
+\node at (-3, -6) (up2l) {$\binom{n-1}{k-2}$};
+\node at (-1, -6) (up1l) {$\binom{n-1}{k-1}$};
+\node at ( 1, -6) (up1r) {$\binom{n-1}{k}$};
+\node at ( 3, -6) (up2r) {$\binom{n-1}{k+1}$};
+\node at ( 4.5, -6) {$\ldots$};
+\node at ( 6, -6) {1};
+\node at (-7, -7) {1};
+\node at (-5.5, -7) {$\ldots$};
+\node at (-4, -7) (main2l) {$\binom{n}{k-2}$};
+\node at (-2, -7) (main1l) {$\binom{n}{k-1}$};
+\node at ( 0, -7) (maincc)  {$\binom{n}{k}$};
+\node at ( 2, -7) (main1r){$\binom{n}{k+1}$};
+\node at ( 4, -7) (main2r){$\binom{n}{k+2}$};
+\node at (5.5, -7) {$\ldots$};
+\node at ( 7, -7) {1};
+%\draw [->, thick] (up2r)--(main2r);
+%\draw [->, thick] (up2r)--(main1r);
+%\draw [->, thick] (up1r)--(main1r);
+\draw [->, thick] (up1r)--(maincc);
+\draw [->, thick] (up1l)--(maincc);
+%\draw [->, thick] (up1l)--(main1l);
+%\draw [->, thick] (up2l)--(main1l);
+%\draw [->, thick] (up2l)--(main2l);
+\end{tikzpicture}
+\end{center}
+\subsection*{Properties}
+\begin{itemize}
+\item $k^{\text{th}}$ element of $n^{\text{th}}$ row has value $\binom{n}{k}$
+\item Each item is the sum of the two above it: $\binom{n-1}{k-1} + \binom{n-1}{k} = \binom{n}{k}$
+\item Sum of $n^{\text{th}}$ row $\sum_{k=0}^{n}\binom{n}{k}=2^n$
+\item Sum of even-indexed terms in row $n$ = Sum of odd-indexed terms in row $n$ = Sum of terms in row $n-1$.
+\end{itemize}
+%\subsection*{Binomial Theorem}
+%\[(x+y)^n = \sum_{k=0}^n {n \choose k}x^{n-k}y^k\]
 \pagebreak
 \section*{Equivalence Relations \& Partitions}
-Coming soon...
-\section*{Binomial Theorem}
 Coming soon...
 \section*{Principle of Inclusion-Exclusion}
 Coming soon...
