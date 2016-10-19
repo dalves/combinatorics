@@ -249,7 +249,17 @@ $C_n$ is also the number of distinct trees with $n$ nodes (where nodes are read 
 
 
 \section*{Principle of Inclusion-Exclusion}
-Coming soon...
+
+The union of $n$ sets $S_1, S_2, \ldots, S_n$ can be computed in terms of intersections of those sets. This is handy when intersections are easier to count than unions.
+
+Example for $n=4:$
+\newcommand{\dlist}[1]{S_{#1}}
+\begin{multline}\label{eq:ps6_3_1}
+    |\dlist{1} \cup \dlist{2} \cup \dlist{3} \cup \dlist{4}| = |\dlist{1}| + |\dlist{2}| + |\dlist{3}| + |\dlist{4}|\\ 
+    -|\dlist{1} \cap \dlist{2}| - |\dlist{1} \cap \dlist{3}| - |\dlist{1} \cap \dlist{4}| - |\dlist{2} \cap \dlist{3}| - |\dlist{2} \cap \dlist{4}| - |\dlist{3} \cap \dlist{4}|\\
+    +|\dlist{1} \cap \dlist{2} \cap \dlist{3}| + |\dlist{1} \cap \dlist{2} \cap \dlist{4}| + |\dlist{1} \cap \dlist{3} \cap \dlist{4}| + |\dlist{2} \cap \dlist{3} \cap \dlist{4}|\\
+    -|\dlist{1} \cap \dlist{2} \cap \dlist{3} \cap \dlist{4}|
+\end{multline}
 
 %\[xC^2(x)-C(x) + 1 = 0\]
 \section*{Generating Functions}
