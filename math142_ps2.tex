@@ -80,7 +80,7 @@ If $n < m$ or $n > m$, no bijective functions exist because of the pigeonhole pr
 If you have 14 copies of Miguel Jordan (who can play all positions), two clones of Shackle O'Neil (who can only play center) and three clones of Stephan Curry (who can play either guard position) and you need a center, a power forward, a small forward, a point guard, and a shooting guard (all considered different positions) to make a team, how many teams can you make?
 \subsection*{Solution}
 
-The final answer is 153,348. The following is a tree representation of the calculation. Nodes labeled \say{OR} are disjoint and use the sum principle to add their children, while nodes labeled \say{AND} use the product principle and multiply their children. A number in parenthesis indicates the number of possible choices for that assignment. 
+The final answer is 473,928. The following is a tree representation of the calculation. Nodes labeled \say{OR} are disjoint and use the sum principle to add their children, while nodes labeled \say{AND} use the product principle and multiply their children. A number in parenthesis indicates the number of possible choices for that assignment. 
 
 \begin{center}
 \begin{forest}
@@ -162,7 +162,8 @@ The final answer is 153,348. The following is a tree representation of the calcu
 \end{center}
 Evaluating this tree gives 
 \begin{multline*}
-\Biggl(2*\Bigl(3*(364 + 2184)\Bigl)+\Bigl(14*(468+1716)\Bigl)\Biggr)+\\\Biggl(14*\Bigl(3*(312+1716)\Bigr)+\Bigl(13*(396+1320)\Bigr)\Biggr)=153,348
+2*\Biggl(3*(364 + 2184)+14*(468+1716)\Biggr)+\\
+14*\Biggl(3*(312+1716)+13*(396+1320)\Biggr)= 473,928
 \end{multline*}
 
 
