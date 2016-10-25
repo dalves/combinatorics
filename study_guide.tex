@@ -360,7 +360,7 @@ $C_n$ is also the number of distinct trees with $n$ nodes (where nodes are read 
 
 
 \section{Principle of Inclusion-Exclusion}
-
+\subsection{General}
 The size of the union of $n$ sets $S_1, S_2, \ldots, S_n$ can be computed in terms of intersections of those sets. This is handy when intersections are easier to count than unions.\\
 
 Example for $n=4:$
@@ -371,11 +371,78 @@ Example for $n=4:$
     +|\dlist{1} \cap \dlist{2} \cap \dlist{3}| + |\dlist{1} \cap \dlist{2} \cap \dlist{4}| + |\dlist{1} \cap \dlist{3} \cap \dlist{4}| + |\dlist{2} \cap \dlist{3} \cap \dlist{4}|\\
     -|\dlist{1} \cap \dlist{2} \cap \dlist{3} \cap \dlist{4}|
 \end{multline*}
-
+\subsection{Derangements}
+\[
+    D(n) = n!\sum_{i=0}^n \frac{(-1)^i}{i!} = n! - \frac{n!}{1!} + \frac{n!}{2!} - \frac{n!}{3!} +\ldots \approx \frac{n!}{e}
+\]
 
 %\[xC^2(x)-C(x) + 1 = 0\]
 \pagebreak
 \section{Generating Functions}
-Coming soon...
+\subsection{Common Generating Functions}
+\begin{equation*}
+    \setlength{\jot}{.5cm}
+    \begin{aligned}
+    \frac{1}{1-x} &= 1 + x + x^2 + x^3 + \ldots & 1, 1, 1, \ldots\\  
+    \frac{1-x^{n+1}}{1-x} &= 1 + x + x^2 + x^3 + \ldots x^n & \underbrace{1, 1, 1, \ldots}_{n\text{ ones}}\\
+    \frac{1}{1+x} &= 1 - x + x^2 - x^3 + \ldots & 1, -1, 1, -1, \ldots\\  
+    \frac{1}{1-x^k} &= 1 + x^k + x^{2k} + x^{3k} + \ldots & 1, \underbrace{0,0,\ldots,0}_{k-1\text{ zeroes}}, 1, 0,\ldots\\
+    \frac{1}{1-ax} &= 1 + ax + a^2x^2 + a^3x^3 + \ldots & 1, a, a^2, \ldots\\
+    \end{aligned}
+\end{equation*}
+
+\subsection{Coefficient Extraction}
+\subsection{Extended Binomial Theorem}
+\begin{equation*}
+    \setlength{\jot}{.5cm}
+    \begin{aligned}
+    \binom{-n}{k} &= (-1)^k\binom{n+k-1}{k}\\
+    \binom{n}{k} &= \frac{n(n-1)(n-2)\ldots(n-k+1)}{k!}
+    \end{aligned}
+\end{equation*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \end{document}
