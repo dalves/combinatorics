@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+\author{David Alves}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{dirtytalk}
+\usepackage[a4paper, total={6.5in, 8.75in}]{geometry}
+\usepackage{forest}
+\usepackage{listings}
+\usepackage{relsize}
+\usepackage{skak}
+\usepackage{tikz}
+\usepackage{titling}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{patterns}
+
+
+\def\multichoose#1#2{\ensuremath{\left(\kern-.3em\left(\genfrac{}{}{0pt}{}{#1}{#2}\right)\kern-.3em\right)}}
+
+\newcommand{\ProblemStatement}[1]{
+\subsection*{Problem Statement}
+#1
+\subsection*{Solution}
+}
+
+% If uncommented, next line hides problem statements 
+%\renewcommand{\ProblemStatement}[1]{}
+
+
+\title{Math 142 Problem Set 9}
+\author{David Alves}
+\date{2016-10-27}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\begin{center}
+\large \thetitle \\
+\theauthor \\
+\thedate
+\end{center}
+
+\subsection*{Sources}
+
+    \begin{itemize}
+    \item http://tex.stackexchange.com and https://www.sharelatex.com for help with \LaTeX
+    \end{itemize}
+
+\section{Five Triangles (Optional)}
+\ProblemStatement{
+Let G be a simple graph with 10 vertices and 26 edges. Show that G has at least 5 triangles.
+}
+
+I didn't have time to figure this one out before the due date. Will add a solution later.
+
+\section{Generating with Powers of Two}
+\ProblemStatement{
+Show, \emph{with generating functions}, that there is exactly one way to represent each non-negative integer as a sum of \emph{distinct} powers of 2. (i.e. there is a unique binary expansion of each integer)
+}
+
+\begin{align*}
+    F(x)&=\prod_{i=0}^{\infty}(1+x^{2^i})\\
+    &=(1 + x^{2^0})(1 + x^{2^1})(1 + x^{2^2})(1+x^{2^3})(1+x^{2^4})\ldots \\
+    &=(1 + x^1)(1 + x^2)(1 + x^4)(1+x^8)(1+x^{16})\ldots \\
+\end{align*}
+
+We define $F(x)$ to be a generating function which represents the choice of using or not using each power of two, for all powers of two. For each power of two, we use a parenthesized term $(1 + x^{2^i})$ which represents the choice between using that power of two  or not using it. The generating function is a product of these parenthesized terms for all powers of two, since we must make such a decision for all powers of two.
+
+In order to show that there is exactly one way to represent each non-negative integer as a sum of distinct powers of 2, we must show that the product above is equal to $1 + x^1 + x^2 + x^3 +\ldots$
+
+\begin{proof}
+    We prove this by induction. Let $p(n)$ be the following statement:
+\[
+    \prod_{i=0}^{n}(1+x^{2^i}) = 1 + x^1 + x^2 + x^3 +\ldots + x^{2^{n+1}-1}
+\]
+For $n=0$, we have $1+x = 1+x$, so $p(0)$ is true.
+Next we must show that for $n \ge 0$, if $p(n)$ is true, then $p(n+1)$ must be true. If we multiply both sides of $p(n)$ by $(1 + x^{2^{n+1}})$ we get:
+
+\begin{align*}
+    \left(1 + x^{2^{n+1}}\right)&\left(\prod_{i=0}^{n}(1+x^{2^i})\right) = \left(1 + x^1 + x^2 +\ldots + x^{2^{n+1}-1}\right)\left(1 + x^{2^{n+1}}\right)\\
+    \prod_{i=0}^{n+1}(1+x^{2^i}) &= \left(1 + x^1 + x^2 + x^3 +\ldots + x^{2^{n+1}-1}\right)\left(1 + x^{2^{n+1}}\right)\\
+\prod_{i=0}^{n+1}(1+x^{2^i}) &= \left(1 + x^1 + x^2 + x^3 + \ldots + x^{2^{n+1}-1}\right)+\left(x^{2^{n+1}} + x^{2^{n+1}+1} + \ldots + x^{2^{n+1}+2^{n+1}-1}\right)\\
+\prod_{i=0}^{n+1}(1+x^{2^i}) &= \left(1 + x^1 + x^2 + x^3 + \ldots + x^{2^{n+2}-1}\right)\\
+\end{align*}
+
+The final equation is $p(n+1)$. Thus if $p(n)$ is true then $p(n+1)$ must also be true, which completes the inductive proof. Thus we have shown that there is exactly one way to represent each non-negative integer as a sum of distinct powers of two.
+
+\end{proof}
+
+
+\section{Counting Subset Lists}
+\ProblemStatement{
+Fix positive integers $n$ and $k$, and let $S = [n]$. Find the number of $k$-lists $(T_1, T_2, \ldots, T_k)$ of subsets $T_i$ of $S$ such that for every $i < j, T_i \subset T_j$.
+}
+
+There are $(k+1)^n$ such $k$-lists.
+
+\begin{proof}
+Consider a list $T$. Each element $e \in S$ is either not present in $T$ or there is some element of $T$, $T_x$, which is the first member of $T$ to contain $e$. Since we know that for every $i < j, T_i \subset T_j$, every element in $T$ after $T_x$ must contain $e$, and by definition every element before $T_x$ does not contain $e$. Therefore whether $e$ is in or not in each element of $T$ is completely determined by the first element which contains $e$. Thus there are $k+1$ possibilities for each element of $S$: It first appears in element $T_x$ (with $k$ possible values of $x$), or it does not appear anywhere in $T$. This gives $(k+1)^n$ possible lists by the product principle.
+\end{proof}
+
+
+\section{Counting Item Lists}
+\ProblemStatement{
+We have $n$ kinds of objects, and we want to count the number of ways to select a $k$-list/tuple of the objects. Find the number of ways to do this if we have:
+\begin{enumerate}
+\item Just one of each kind
+\item Infinite objects of each kind
+\item Just $l$ objects of each kind    
+\end{enumerate}
+You're allowed to just give a generating function, too.
+}
+
+\subsubsection*{One of Each Type}
+\begin{align*}
+    n < k &: 0\\
+    n \ge k &: \frac{n!}{(n-k)!}
+\end{align*}
+
+If $n < k$, there are 0 ways to select a $k$-list since there aren't enough objects. If $n \ge k$, there are $n$ choices for the first item, $n-1$ choices for the second (since we can't use the same type again), $n-2$ choices for the third, etc. This gives $\frac{n!}{(n-k)!}$ possible $k$-lists.
+
+\subsubsection*{Infinite of Each Type}
+There are $n$ choices for each item, giving $n^k$ $k$-lists by the product principle.
+
+\subsubsection*{Limited Number of Each Type}
+
+\[
+  [x^k]\left(\left(1 + \frac{x^1}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + \ldots + \frac{x^l}{l!}\right)^nk!\right)
+\]
+
+
+We can express the solution in the form of a generating function. For each kind of item, there can be between 0 and $l$ of that kind present in the list. The choice of how many of a single kind to use can be represented as the expression $(1 + x + x^2 + \ldots + x^l)$. Multiplying together $n$ such terms (one per kind) gives a polynomial where the coefficient of $x^y$ is the number of ways you can make a set of size $y$ using $n$ kinds of items with up to $l$ of each item. If every item in this set were distinguishable, there would be $k!$ orderings of the $k$ items into a list. However, we also need to use the quotient principle to account for multiple items of a single kind, which are indistinguishable from each other. We do this by dividing the $x^z$ term of each kind by $z!$, since that term represents using $z$ of the same kind.
+\section{Binary Codes}
+\ProblemStatement{
+Let a \emph{codeword} of length $n \ge 1$ be a list of $n$ binary digits (0's and 1's). Call a codeword \emph{even} if it has an even number of 1's. For example, 0110110 is even but 0111 is not. For each $n$, find the number of codewords of length $n$.
+}
+
+There are $2^{n-1}$ even codewords for $n \ge 1$.
+\begin{proof}
+We prove this by induction. Let $E_n$ be the set of even codewords with length $n$ and $O_n$ be the set of non-even codewords of length $n$. Let $p(n)$ be the statement that $|E_n| = |O_n| = 2^{n-1}$.  For $n = 1$, there are two codewords, \say{0} and \say{1}. Of these two, only \say{0} is even. Thus $|E_1| = |O_1| = 2^0$, so $p(1)$ is true.
+
+Next we show that if $p(n)$ is true, $p(n+1)$ must also be true for $n \ge 2$. Each member of $E_{n+1}$ either ends in a 0 or a 1. If it ends in a 0, then that codeword with the final 0 removed is a member of $E_n$. If it ends in a 1, then the codeword with the final 1 removed is a member of $O_n$. All members of $E_n$ will be in $E_{n+1}$ when you append a 0, and all members of $O_n$ will be in $E_{n+1}$ when you append a 1. Thus $|E_{n+1}| = |E_n| + |O_n|$. Similarly, each member of $O_{n+1}$ either ends in a 0 or a 1. If it ends in a 0, then that codeword with the final 0 removed is a member of $O_n$. If it ends in a 1, then the codeword with the final 1 removed is a member of $E_n$. All members of $O_n$ will be in $O_{n+1}$ when you append a 0, and all members of $E_n$ will be in $O_{n+1}$ when you append a 1. Thus $|O_{n+1}| = |O_n| + |E_n|$. Since we know  $p(n): |E_n| = |O_n| = 2^{n-1}$, we have shown that $|E_{n+1}| = |O_{n+1}| = 2^{n}$, which completes the inductive proof.
+\end{proof}
+
+
+\section{Time Spent \& Thoughts}
+
+Much harder than our typical problem set. I was stuck on the five triangles problem for quite a while, and problem 4 part C was pretty tricky. I enjoyed the problems quite a bit but it was very time-consuming to try and finish all of them, so by the end I was pretty tired of it. I spent about 12 hours on the problem set.
+
+\end{document}
