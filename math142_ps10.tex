@@ -1,0 +1,89 @@
+\documentclass[12pt]{article}
+\author{David Alves}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{dirtytalk}
+\usepackage[a4paper]{geometry}
+\usepackage{forest}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{relsize}
+\usepackage{skak}
+\usepackage{tikz}
+\usepackage{titling}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{patterns}
+
+\def\multichoose#1#2{\ensuremath{\left(\kern-.3em\left(\genfrac{}{}{0pt}{}{#1}{#2}\right)\kern-.3em\right)}}
+
+\newcommand{\ProblemStatement}[1]{
+\subsection*{Problem Statement}
+#1
+\subsection*{Solution}
+}
+
+% If uncommented, next line hides problem statements 
+%\renewcommand{\ProblemStatement}[1]{}
+
+
+\title{Math 142 Problem Set 10}
+\author{David Alves}
+\date{2016-11-03}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\begin{center}
+\large \thetitle \\
+\theauthor \\
+\thedate
+\end{center}
+
+\subsection*{Sources}
+
+    \begin{itemize}
+    \item http://tex.stackexchange.com and https://www.sharelatex.com for help with \LaTeX
+    \end{itemize}
+
+\section{Stirling Numbers}
+\ProblemStatement{
+For general $n$, what are the Stirling numbers of the second kind $S(n,0)$, $S(n,1)$, and $S(n,2)$
+}
+
+\section{Counting Primes}
+\ProblemStatement{
+Find the number of primes less than or equal to 111. (Hint: the number of integers 1 through $n$ divisible by $k$ is $\floor{\frac{n}{k}}$. You can take it for granted that all composite numbers less than 111 are divisible by at least one of 2, 3, 5 or 7
+}
+
+\section{Spider Socks}
+\ProblemStatement{
+A spider has 8 different feet, 8 different socks, and 8 different shoes. Find the number of orders that the spider can put on socks and shoes such that the each foot has exactly one sock and one shoe and the $n^{\text{th}}$ sock is put on before the $n^{\text{th}}$ shoe for all $n$.}
+
+\section{Five Coins}
+\ProblemStatement{
+You and your friend flip 5 fair and independent coins in a row. If any two consecutive coins are HT in order, you win. If any two consecutive coins are TT in order, your friend wins. What's the probability that you win? What's the probability of a tie?
+}
+
+
+\section{Choosing Compositions}
+\ProblemStatement{
+Prove that for any fixed positive integer $k$, each positive integer $n$ has a unique representation in the form 
+\[
+    n = \binom{b_1}{1} + \binom{b_2}{2} + \binom{b_3}{3} +\dots + \binom{b_k}{k} 
+\]
+where $0 \le b_1 < b_2 < \dots < b_k$.
+}
+
+
+
+\section{Time Spent \& Thoughts}
+
+\end{document}
