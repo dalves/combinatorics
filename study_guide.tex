@@ -51,7 +51,7 @@ by \theauthor \\
 \section{Notation \& Basics}
 \newcommand{\termtable}[1]{
     \def\arraystretch{1.75}
-    \begin{tabular}{ r p{28em} }
+    \begin{tabular}{ r|p{28em} }
     #1
     \end{tabular}
 }
@@ -403,20 +403,34 @@ Example for $n=4:$
 
 
 
+\section{Probability}
+
+
+\termtable{
+\term{$\Omega$} \emph{Sample Space}, or set of \emph{outcomes}, e.g. coin flip is ${\{H, T\}}$\\
+\term{event $E$} Subset of $\Omega$, e.g. $\{H\} \subset \{H, T\}$\\
+\term{$E^C$} The \emph{complement} of an event $E \subset \Omega$, or $\Omega\backslash E$\\
+\term{event space} The set of events\\
+\term{$P:\{0, 1\}^\Omega \rightarrow [0,1]$ } A \emph{probability measure} is a function with domain (subsets of $\Omega$) to a real number in $[0,1]$ subject to the following rules:
+    \begin{enumerate}
+    \item $P(\emptyset) = 0$ 
+    \item $P(\Omega) = 1$
+    \item if $A$ and $B$ are disjoint, then $P(A\cup B) = P(A) + P(B)$
+    \end{enumerate}\\
+\term{$P(A|B)$} The \emph{conditional probability} of $A$ given $B$. \[ P(A|B) =\frac{P(A) \cup P(B)}{P(B)} \] \\
+\term{random variable} $X: \Omega \rightarrow T$ (usually $T = \mathbb{R}$)\\
+\term{distribution of r.v.} For T arbitrary (but discrete) it's a bar graph\\
+\term{$E[X]$} The \emph{expectation} given $(T = \mathbb{R})$ is defined as \[ \sum_{x\in T} x P(X=x)\]\\
+\term{uniform distribution} All outcomes have equal probability\\
+\term{linearity of expectations} $E[X + Y] = E[X] + E[Y]$ number of heads in three flips is equal to number of heads in flip1, number in flip2, number in flip3, therefore $E[X] = 3E[X_i]$ DOES NOT REQUIRE INDEPENDENCE!\\
+}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+Bayes' Theorem
+\[
+    P(B|A) = \frac{P(B) P(A|B)}{P(A)}
+\]
 
 
 
