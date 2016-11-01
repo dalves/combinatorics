@@ -433,22 +433,20 @@ Bayes' Theorem
 \]
 
 
+\section{Graphs}
 
+\termtable{
+\term{simple graph $G$} Set of vertices $V(G)$ and set of edges $E(G)$\\
+\term{$V(G)$} The set of vertices in $G$. Can be any set.\\
+\term{$E(G)$} The set of edges in $G$. An edge is a set of two \emph{distinct} elements of V(G). $\{v_1, v_2\}: v_1 \neq v_2$\\
+\term{directed graph} Same as a simple graph, but edges are length-2 lists, so you can have an edge $(v_1, v_2)$ without the reverse edge $(v_2, v_1)$\\
+\term{isomorphism} Two graphs are the same if you rename the vertices. Formally, there exists a bijective function $f: V(G_1) \rightarrow V(G_2)$ such that $\{v, w\} \in E(G_1) \iff \{f(v), f(w)\} \in E(G_2)$ (Note: $\iff$ means \say{if and only if})\\
+\term{path} A sequence $v_1 \xrightarrow[e_1]{} v_2 \xrightarrow[e_2]{} v_3 \dots v_k$ where no vertex appears twice\\
+\term{cycle} A \emph{path} $v_1 \xrightarrow[e_1]{} v_2 \xrightarrow[e_2]{} v_3 \dots v_1$ which ends at the start vertex.\\
+\term{tree} A graph with no cycles.\\
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Number of trees on $n$ vertices: $n^{n-2}$
 
 
 
