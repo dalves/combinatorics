@@ -391,7 +391,6 @@ Example for $n=4:$
     \end{aligned}
 \end{equation*}
 
-\subsection{Coefficient Extraction}
 \subsection{Extended Binomial Theorem}
 \begin{equation*}
     \setlength{\jot}{.5cm}
@@ -422,16 +421,9 @@ Example for $n=4:$
 \term{distribution of r.v.} For T arbitrary (but discrete) it's a bar graph\\
 \term{$E[X]$} The \emph{expectation} given $(T = \mathbb{R})$ is defined as \[ \sum_{x\in T} x P(X=x)\]\\
 \term{uniform distribution} All outcomes have equal probability\\
-\term{linearity of expectations} $E[X + Y] = E[X] + E[Y]$ number of heads in three flips is equal to number of heads in flip1, number in flip2, number in flip3, therefore $E[X] = 3E[X_i]$ DOES NOT REQUIRE INDEPENDENCE!\\
+\term{linearity of expectations} $E[X + Y] = E[X] + E[Y]$ Expected number of heads in three flips is equal to number of heads in flip1, number in flip2, number in flip3, therefore $E[X] = 3E[X_i]$ Does not require independence!\\
+\term{Baye's theorem} $P(B|A) = \frac{P(B) P(A|B)}{P(A)}$\\
 }
-
-
-
-Bayes' Theorem
-\[
-    P(B|A) = \frac{P(B) P(A|B)}{P(A)}
-\]
-
 
 \section{Graphs}
 
@@ -443,17 +435,8 @@ Bayes' Theorem
 \term{isomorphism} Two graphs are the same if you rename the vertices. Formally, there exists a bijective function $f: V(G_1) \rightarrow V(G_2)$ such that $\{v, w\} \in E(G_1) \iff \{f(v), f(w)\} \in E(G_2)$ (Note: $\iff$ means \say{if and only if})\\
 \term{path} A sequence $v_1 \xrightarrow[e_1]{} v_2 \xrightarrow[e_2]{} v_3 \dots v_k$ where no vertex appears twice\\
 \term{cycle} A \emph{path} $v_1 \xrightarrow[e_1]{} v_2 \xrightarrow[e_2]{} v_3 \dots v_1$ which ends at the start vertex.\\
-\term{tree} A graph with no cycles.\\
+\term{tree} A graph with no cycles. There are $n^{n-2}$ trees on $n$ vertices (not expected to prove this)\\
 }
-
-Number of trees on $n$ vertices: $n^{n-2}$
-
-
-
-
-
-
-
 
 
 
