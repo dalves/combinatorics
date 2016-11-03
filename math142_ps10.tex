@@ -281,51 +281,9 @@ We prove that $b_k = c_k$ by contradiction. Assume $b_k$ = $c_k - 1$. Then the l
     \binom{c_k}{k} - \left(\sum_{i=k+1}^{n} \binom{c_k-i}{k+1-i}\right)&\ge n\\
     \binom{c_k}{k} &\ge n + \left(\sum_{i=k+1}^{n} \binom{c_k-i}{k+1-i}\right)
 \end{align*}
-$\sum_{i=k+1}^{n} \binom{c_k-i}{k+1-i}$ (need to demonstrate this) is positive, therefore this contradicts our definition of $c_k \le n$. Thus our assumption must be false, and $b_k$ must be $c_k$ since the maximal value when $b_k < c_k$ is too low.  
+$\sum_{i=k+1}^{n} \binom{c_k-i}{k+1-i}$ (need to demonstrate this) is positive, therefore this contradicts our definition of $c_k \le n$. Thus our assumption must be false, and $b_k$ must be $c_k$ since the maximal value when $b_k < c_k$ is too low. Therefore we know $b_k$ = $c_k$ and can apply the same logic recursively for $b_{k-1} = c_{k-1}$, etc. all the way down to $b_1$. Thus we have shown that there is only one choice for each $b_x$ term, so the solution if it exists is unique.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(Note: I think I screwing something up, this should be $\binom{c_k}{k}>n$ so that we can establish a contradiction and thus show that $b_k = c_k$. Unfortunately I don't have time to finish this proof.) 
+(This proves uniqueness but not existence. Unfortunately I don't have time to finish this proof.) 
 
 
 \section{Time Spent \& Thoughts}
