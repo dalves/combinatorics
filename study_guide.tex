@@ -429,15 +429,17 @@ Example for $n=4:$
 
 \termtable{
 \term{simple graph $G$} Set of vertices $V(G)$ and set of edges $E(G)$\\
-\term{$V(G)$} The set of vertices in $G$. Can be any set.\\
+\term{$V(G)$} The set of vertices in $G$. Can be any set\\
 \term{$E(G)$} The set of edges in $G$. An edge is a set of two \emph{distinct} elements of V(G). $\{v_1, v_2\}: v_1 \neq v_2$\\
 \term{directed graph} Same as a simple graph, but edges are length-2 lists, so you can have an edge $(v_1, v_2)$ without the reverse edge $(v_2, v_1)$\\
 \term{isomorphism} Two graphs are the same if you rename the vertices. Formally, there exists a bijective function $f: V(G_1) \rightarrow V(G_2)$ such that $\{v, w\} \in E(G_1) \iff \{f(v), f(w)\} \in E(G_2)$ (Note: $\iff$ means \say{if and only if})\\
 \term{path} A sequence $v_1 \xrightarrow[e_1]{} v_2 \xrightarrow[e_2]{} v_3 \dots v_k$ where no vertex appears twice\\
-\term{cycle} A \emph{path} $v_1 \xrightarrow[e_1]{} v_2 \xrightarrow[e_2]{} v_3 \dots v_1$ which ends at the start vertex.\\
+\term{cycle} A \emph{path} $v_1 \xrightarrow[e_1]{} v_2 \xrightarrow[e_2]{} v_3 \dots v_1$ which ends at the start vertex\\
 \term{tree} A graph with no cycles. There are $n^{n-2}$ trees on $n$ vertices (not expected to prove this)\\
+\term{bipartite graph} A graph in which no odd-length cycles exist. The vertices can be divided into disjoint subsets $A$ and $B$ such that no two vertices in $A$ are connected by an edge and no two vertices in $B$ are connected by an edge\\
+\term{weighted graph} A graph in which each edge has an number\\
+\term{$C_n$} A graph on $n$ vertices where all vertices are in one big cycle\\
+\term{$K_n$} A \emph{complete} graph on $n$ vertices (all possible edges exist)\\
+\term{$K_{n,m}$} A \emph{bipartite} graph with $n$ vertices in one set and $m$ vertices in the other. Every edge between a vertex in $n$ and a vertex in $m$ exists, and no other edges exist.\\
 }
-
-
-
 \end{document}
