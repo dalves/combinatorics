@@ -9,9 +9,11 @@
 \usepackage{forest}
 \usepackage{listings}
 \usepackage{mathtools}
+\usepackage{nth}
 \usepackage{relsize}
 \usepackage{skak}
 \usepackage{tikz}
+\usepackage{tikz-qtree}
 \usepackage{titling}
 \usepackage{wrapfig}
 \usepackage{xcolor}
@@ -23,6 +25,8 @@
 \usetikzlibrary{patterns}
 
 \def\multichoose#1#2{\ensuremath{\left(\kern-.3em\left(\genfrac{}{}{0pt}{}{#1}{#2}\right)\kern-.3em\right)}}
+
+\newcommand{\ts}[1]{\textsuperscript{#1}}
 
 \newcommand{\ProblemStatement}[1]{
 \subsection*{Problem Statement}
@@ -51,39 +55,46 @@
 
     \begin{itemize}
     \item http://tex.stackexchange.com and https://www.sharelatex.com for help with \LaTeX
+    \item I discussed problem 5 with Pak Ho although I came up with the solution on my own.
     \end{itemize}
 
 \section{Stirling Numbers}
 \ProblemStatement{
-For general $n$, what are the Stirling numbers of the second kind $S(n,0)$, $S(n,1)$, and $S(n,2)$
+For general $n$, what are the Stirling numbers of the second kind $S(n,0)$, $S(n,1)$, and $S(n,2)$?
 }
 
-\subsection{Zero Bins}
+\subsubsection{$n$ Balls into Zero Bins}
 \[
     S(n, 0) = 
     \begin{cases}
         1&: n=0\\
-        0&: n>0    
+        0&: n \ge 1
     \end{cases}
 \]
-\subsection{One Bins}
+
+For $S(0,0)$, there is one way to put zero balls into zero bins such that all bins have at least one ball (it is vacuously true that all zero bins contain at least one ball). For one or more balls, it is impossible to place them into bins since there are zero bins, therefore $S(n, 0) = 0: n \ge 1$.
+
+\subsubsection{$n$ Balls into One Bin}
 \[
     S(n, 1) = 
     \begin{cases}
         0&: n=0\\
-        1&: n>0    
+        1&: n \ge 1
     \end{cases}
 \]
 
+For $S(0, 1)$, there is no way to put zero balls into one bin such that the bin contains at least one ball. For $S(n, 1): n \ge 1$, there is one choice for each ball, so there is one choice by the product principle.
 
-\subsection{Two Bins}
+\subsubsection{$n$ Balls into Two Bins}
 \[
-    S(n, 1) = 
+    S(n, 2) = 
     \begin{cases}
         0&: n=0\\
-        2^{n-1}-1&: n>0    
+        2^{n-1}-1&: n \ge 2
     \end{cases}
 \]
+
+For $S(0, 2)$ and $S(1, 2)$, there are no ways to put the balls into the bins such that each bin contains at least one ball because there are not enough balls. For $S(n, 2): n \ge 2$, there is only one choice for the first ball because the bins are indistinguishable. After placing the first ball, the bins become distinguishable. Label the bins $A$, which contains the first ball, and $B$, which does not. Thus we must place the remaining $n-1$ balls into 2 distinguishable bins. There are $2^{n-1}$ ways to do so by the product principle. Out of those $2^{n-1}$ configurations, there is exactly one which is not legal: the one which places all $n-1$ balls into $A$, since that leaves $B$ empty. Every other configuration places at least one ball into $B$, and $A$ already has one ball. Thus there are $2^{n-1}-1$ ways to place $n$ balls into 2 bins for $n >= 2$ such that each bin contains at least one ball.
 
 \section{Counting Primes}
 \ProblemStatement{
@@ -92,20 +103,224 @@ Find the number of primes less than or equal to 111. (Hint: the number of intege
 
 \section{Spider Socks}
 \ProblemStatement{
-A spider has 8 different feet, 8 different socks, and 8 different shoes. Find the number of orders that the spider can put on socks and shoes such that the each foot has exactly one sock and one shoe and the $n^{\text{th}}$ sock is put on before the $n^{\text{th}}$ shoe for all $n$.}
-
-There are $\frac{16!}{2^8}$ valid orders. 
+A spider has 8 different feet, 8 different socks, and 8 different shoes. Find the number of orders that the spider can put on socks and shoes such that all socks and shoes are put on once and the $n\ts{th}$ sock is put on before the $n\ts{th}$ shoe for all $n$.}
+There are $\frac{16!}{2^8} = 81,729,648,000$ valid orders. 
 
 \begin{proof}
-Let the $n^{\text{th}}$ shoe be $H_n$ and the $n^{\text{th}}$ sock be $O_n$. We want to find all lists consisting of $H$ and $O$ such that $H_n$ comes before $O_n$. We can simply find all possible orderings of the 16 items (16! orderings) and divide by two for each $(O_n, H_n)$ sock, shoe pair since we are only counting one of the two possible orderings
+Let the $n\ts{th}$ shoe be $S_n$ and the $n\ts{th}$ sock be $O_n$. We want to find all lists consisting of the elements $S_1, S_2, \dots, S_8$, $O_1, O_2, \dots, O_8$ once each in some order such that $O_n$ comes before $S_n$ for all $n$. There are $16!$ permutations of the 16 elements in the list. We then need to divide by two for each $O_i, S_i$ pair since by the quotient principle since regardless of whether the sock or shoe comes first when considering that pair, we only want to count one relative ordering of that sock and shoe. Thus we have a total of $\frac{16!}{2^8}$ valid orders.
 \end{proof}
 
 
 \section{Five Coins}
 \ProblemStatement{
-You and your friend flip 5 fair and independent coins in a row. If any two consecutive coins are HT in order, you score a \say{hit}. If any two consecutive coins are TT in order, your friend scores a \say{hit}. What's the probability that you score a hit and your friend does not? What's the probability that you and your friend both score one or more hits?
+You and your friend flip 5 fair and independent coins in a row. If any two consecutive coins are HT in order, you score a \say{hit}. If any two consecutive coins are TT in order, your friend scores a \say{hit}. What's the probability that you score one or more hits and your friend does not? What's the probability that you and your friend both score one or more hits?
 }
 
+\scalebox{0.65}{
+\begin{forest}
+  for tree={
+    grow'=0,
+    child anchor=west,
+    parent anchor=east,
+    anchor=west,
+    calign=center,
+    inner ysep=0.0pt,
+    fit=band,
+    before computing xy={l=72pt},
+  }    
+[.$\emptyset$
+[.$H$
+    [.$HH$
+        [.$HHH$
+            [.$HHHH$
+                [.$HHHHH$
+                    [.$HHHHHH$ ]
+                    [.$\textbf{HHHHHT}$ ]
+                ]
+                [.$\textbf{HHHHT}$
+                    [.$\textbf{HHHHTH}$ ]
+                    [.$\underline{\textbf{HHHHTT}}$ ]
+                ]
+            ]
+            [.$\textbf{HHHT}$
+                [.$\textbf{HHHTH}$
+                    [.$\textbf{HHHTHH}$ ]
+                    [.$\textbf{HHHTHT}$ ]
+                ]
+                [.$\underline{\textbf{HHHTT}}$
+                    [.$\underline{\textbf{HHHTTH}}$ ]
+                    [.$\underline{\textbf{HHHTTT}}$ ]
+                ]
+            ]
+        ]
+        [.$\textbf{HHT}$
+            [.$\textbf{HHTH}$
+                [.$\textbf{HHTHH}$
+                    [.$\textbf{HHTHHH}$ ]
+                    [.$\textbf{HHTHHT}$ ]
+                ]
+                [.$\textbf{HHTHT}$
+                    [.$\textbf{HHTHTH}$ ]
+                    [.$\underline{\textbf{HHTHTT}}$ ]
+                ]
+            ]
+            [.$\underline{\textbf{HHTT}}$
+                [.$\underline{\textbf{HHTTH}}$
+                    [.$\underline{\textbf{HHTTHH}}$ ]
+                    [.$\underline{\textbf{HHTTHT}}$ ]
+                ]
+                [.$\underline{\textbf{HHTTT}}$
+                    [.$\underline{\textbf{HHTTTH}}$ ]
+                    [.$\underline{\textbf{HHTTTT}}$ ]
+                ]
+            ]
+        ]
+    ]
+    [.$\textbf{HT}$
+        [.$\textbf{HTH}$
+            [.$\textbf{HTHH}$
+                [.$\textbf{HTHHH}$
+                    [.$\textbf{HTHHHH}$ ]
+                    [.$\textbf{HTHHHT}$ ]
+                ]
+                [.$\textbf{HTHHT}$
+                    [.$\textbf{HTHHTH}$ ]
+                    [.$\underline{\textbf{HTHHTT}}$ ]
+                ]
+            ]
+            [.$\textbf{HTHT}$
+                [.$\textbf{HTHTH}$
+                    [.$\textbf{HTHTHH}$ ]
+                    [.$\textbf{HTHTHT}$ ]
+                ]
+                [.$\underline{\textbf{HTHTT}}$
+                    [.$\underline{\textbf{HTHTTH}}$ ]
+                    [.$\underline{\textbf{HTHTTT}}$ ]
+                ]
+            ]
+        ]
+        [.\parbox{10cm}{$\underline{\textbf{HTT}}\text{  } 2^3=8$ outcomes with this prefix omitted since they all have both players winning} ]
+        [.$\underline{\textbf{HTT}}$
+            [.$\underline{\textbf{HTTH}}$
+                [.$\underline{\textbf{HTTHH}}$
+                    [.$\underline{\textbf{HTTHHH}}$ ]
+                    [.$\underline{\textbf{HTTHHT}}$ ]
+                ]
+                [.$\underline{\textbf{HTTHT}}$
+                    [.$\underline{\textbf{HTTHTH}}$ ]
+                    [.$\underline{\textbf{HTTHTT}}$ ]
+                ]
+            ]
+            [.$\underline{\textbf{HTTT}}$
+                [.$\underline{\textbf{HTTTH}}$
+                    [.$\underline{\textbf{HTTTHH}}$ ]
+                    [.$\underline{\textbf{HTTTHT}}$ ]
+                ]
+                [.$\underline{\textbf{HTTTT}}$
+                    [.$\underline{\textbf{HTTTTH}}$ ]
+                    [.$\underline{\textbf{HTTTTT}}$ ]
+                ]
+            ]
+        ]
+    ]
+]
+[.$T$
+    [.$TH$
+        [.$THH$
+            [.$THHH$
+                [.$THHHH$
+                    [.$THHHHH$ ]
+                    [.$\textbf{THHHHT}$ ]
+                ]
+                [.$\textbf{THHHT}$
+                    [.$\textbf{THHHTH}$ ]
+                    [.$\underline{\textbf{THHHTT}}$ ]
+                ]
+            ]
+            [.$\textbf{THHT}$
+                [.$\textbf{THHTH}$
+                    [.$\textbf{THHTHH}$ ]
+                    [.$\textbf{THHTHT}$ ]
+                ]
+                [.$\underline{\textbf{THHTT}}$
+                    [.$\underline{\textbf{THHTTH}}$ ]
+                    [.$\underline{\textbf{THHTTT}}$ ]
+                ]
+            ]
+        ]
+        [.$\textbf{THT}$
+            [.$\textbf{THTH}$
+                [.$\textbf{THTHH}$
+                    [.$\textbf{THTHHH}$ ]
+                    [.$\textbf{THTHHT}$ ]
+                ]
+                [.$\textbf{THTHT}$
+                    [.$\textbf{THTHTH}$ ]
+                    [.$\underline{\textbf{THTHTT}}$ ]
+                ]
+            ]
+            [.$\underline{\textbf{THTT}}$
+                [.$\underline{\textbf{THTTH}}$
+                    [.$\underline{\textbf{THTTHH}}$ ]
+                    [.$\underline{\textbf{THTTHT}}$ ]
+                ]
+                [.$\underline{\textbf{THTTT}}$
+                    [.$\underline{\textbf{THTTTH}}$ ]
+                    [.$\underline{\textbf{THTTTT}}$ ]
+                ]
+            ]
+        ]
+    ]
+    [.$\underline{TT}$
+        [.$\underline{TTH}$
+            [.$\underline{TTHH}$
+                [.$\underline{TTHHH}$
+                    [.$\underline{TTHHHH}$ ]
+                    [.$\underline{\textbf{TTHHHT}}$ ]
+                ]
+                [.$\underline{\textbf{TTHHT}}$
+                    [.$\underline{\textbf{TTHHTH}}$ ]
+                    [.$\underline{\textbf{TTHHTT}}$ ]
+                ]
+            ]
+            [.$\underline{\textbf{TTHT}}$
+                [.$\underline{\textbf{TTHTH}}$
+                    [.$\underline{\textbf{TTHTHH}}$ ]
+                    [.$\underline{\textbf{TTHTHT}}$ ]
+                ]
+                [.$\underline{\textbf{TTHTT}}$
+                    [.$\underline{\textbf{TTHTTH}}$ ]
+                    [.$\underline{\textbf{TTHTTT}}$ ]
+                ]
+            ]
+        ]
+        [.$\underline{TTT}$
+            [.$\underline{TTTH}$
+                [.$\underline{TTTHH}$
+                    [.$\underline{TTTHHH}$ ]
+                    [.$\underline{\textbf{TTTHHT}}$ ]
+                ]
+                [.$\underline{\textbf{TTTHT}}$
+                    [.$\underline{\textbf{TTTHTH}}$ ]
+                    [.$\underline{\textbf{TTTHTT}}$ ]
+                ]
+            ]
+            [.$\underline{TTTT}$
+                [.$\underline{TTTTH}$
+                    [.$\underline{TTTTHH}$ ]
+                    [.$\underline{\textbf{TTTTHT}}$ ]
+                ]
+                [.$\underline{TTTTT}$
+                    [.$\underline{TTTTTH}$ ]
+                    [.$\underline{TTTTTT}$ ]
+                ]
+            ]
+        ]
+    ]
+]
+]
+\end{forest}
+}
 
 \section{Choosing Compositions}
 \ProblemStatement{
@@ -116,6 +331,7 @@ Prove that for any fixed positive integer $k$, each positive integer $n$ has a u
 where $0 \le b_1 < b_2 < \dots < b_k$.
 }
 
+Lol, wut?
 
 
 \section{Time Spent \& Thoughts}
