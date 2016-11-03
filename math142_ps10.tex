@@ -1,0 +1,332 @@
+\documentclass[12pt]{article}
+\author{David Alves}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{dirtytalk}
+\usepackage[a4paper]{geometry}
+\usepackage{forest}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{nth}
+\usepackage{relsize}
+\usepackage{skak}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{titling}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{patterns}
+
+\def\multichoose#1#2{\ensuremath{\left(\kern-.3em\left(\genfrac{}{}{0pt}{}{#1}{#2}\right)\kern-.3em\right)}}
+
+\newcommand{\ts}[1]{\textsuperscript{#1}}
+
+\newcommand{\ProblemStatement}[1]{
+\subsection*{Problem Statement}
+#1
+\subsection*{Solution}
+}
+
+% If uncommented, next line hides problem statements 
+%\renewcommand{\ProblemStatement}[1]{}
+
+
+\title{Math 142 Problem Set 10}
+\author{David Alves}
+\date{2016-11-03}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\begin{center}
+\large \thetitle \\
+\theauthor \\
+\thedate
+\end{center}
+
+\subsection*{Sources}
+
+    \begin{itemize}
+    \item http://tex.stackexchange.com and https://www.sharelatex.com for help with \LaTeX
+    \end{itemize}
+
+\section{Stirling Numbers}
+\ProblemStatement{
+For general $n$, what are the Stirling numbers of the second kind $S(n,0)$, $S(n,1)$, and $S(n,2)$?
+}
+
+The Stirling number of the second kind $S(n,k)$ can be defined as the number of ways to put $n$ distinguishable balls into $k$ indistinguishable bins such that each bin contains at least one ball. 
+
+\subsubsection{$n$ Balls into Zero Bins}
+\[
+    S(n, 0) = 
+    \begin{cases}
+        1&: n=0\\
+        0&: n \ge 1
+    \end{cases}
+\]
+
+For $S(0,0)$, there is one way to put zero balls into zero bins such that all bins have at least one ball (it is vacuously true that all zero bins contain at least one ball). For one or more balls, it is impossible to place them into bins since there are zero bins, therefore $S(n, 0) = 0: n \ge 1$.
+
+\subsubsection{$n$ Balls into One Bin}
+\[
+    S(n, 1) = 
+    \begin{cases}
+        0&: n=0\\
+        1&: n \ge 1
+    \end{cases}
+\]
+
+For $S(0, 1)$, there is no way to put zero balls into one bin such that the bin contains at least one ball. For $S(n, 1): n \ge 1$, there is one choice for each ball, so there is one choice by the product principle.
+
+\subsubsection{$n$ Balls into Two Bins}
+\[
+    S(n, 2) = 
+    \begin{cases}
+        0&: n=0, 1\\
+        2^{n-1}-1&: n \ge 2
+    \end{cases}
+\]
+
+For $S(0, 2)$ and $S(1, 2)$, there are no ways to put the balls into the bins such that each bin contains at least one ball because there are not enough balls. For $S(n, 2): n \ge 2$, there is only one choice for the first ball because the bins are indistinguishable. After placing the first ball, the bins become distinguishable. Label the bins $A$, which contains the first ball, and $B$, which does not. Thus we must place the remaining $n-1$ balls into 2 distinguishable bins. There are $2^{n-1}$ ways to do so by the product principle. Out of those $2^{n-1}$ configurations, there is exactly one which is not legal: the one which places all $n-1$ balls into $A$, since that leaves $B$ empty. Every other configuration places at least one ball into $B$, and $A$ already has one ball. Thus there are $2^{n-1}-1$ ways to place $n$ balls into 2 bins for $n >= 2$ such that each bin contains at least one ball.
+
+\section{Counting Primes}
+\ProblemStatement{
+Find the number of primes less than or equal to 111. (Hint: the number of integers 1 through $n$ divisible by $k$ is $\floor{\frac{n}{k}}$. You can take it for granted that all composite numbers less than 111 are divisible by at least one of 2, 3, 5 or 7
+}
+
+There are 29 primes in $[1, 111]$.
+
+\begin{proof}
+We solve this using the inclusion-exclusion principle. Let $D_n$ be the set of positive integers less than or equal to 111 that are divisible by $n$. By the inclusion-exclusion principle, we know that 
+
+\newcommand{\dlist}[1]{D_{#1}}
+\begin{multline*}
+    |\dlist{2} \cup \dlist{3} \cup \dlist{5} \cup \dlist{7}| = |\dlist{2}| + |\dlist{3}| + |\dlist{5}| + |\dlist{7}|\\ 
+    -|\dlist{2} \cap \dlist{3}| - |\dlist{2} \cap \dlist{5}| - |\dlist{2} \cap \dlist{7}| - |\dlist{3} \cap \dlist{5}| - |\dlist{3} \cap \dlist{7}| - |\dlist{5} \cap \dlist{7}|\\
+    +|\dlist{2} \cap \dlist{3} \cap \dlist{5}| + |\dlist{2} \cap \dlist{3} \cap \dlist{7}| + |\dlist{2} \cap \dlist{5} \cap \dlist{7}| + |\dlist{3} \cap \dlist{5} \cap \dlist{7}|\\
+    -|\dlist{2} \cap \dlist{3} \cap \dlist{5} \cap \dlist{7}|
+\end{multline*}
+
+The size of an individual set $|D_k| = \floor{\frac{111}{k}}$. The intersection of two sets $D_i$ and $D_j$ is all numbers divisible by both, which is therefore $|D_i \cap D_j| = |D_{ij}| = \floor{\frac{111}{ij}}$. Thus the above equation simplifies to 
+
+\newcommand{\dfloor}[1]{\floor*{\frac{111}{#1}}}
+\begin{multline*}
+    |\dlist{2} \cup \dlist{3} \cup \dlist{5} \cup \dlist{7}| = \dfloor{2} + \dfloor{3} + \dfloor{5} + \dfloor{7}\\ 
+    -\dfloor{2\times3} - \dfloor{2\times5} - \dfloor{2\times7} - \dfloor{3\times5} - \dfloor{3\times7} - \dfloor{5\times7}\\
+    +\dfloor{2\times3\times5} + \dfloor{2\times3\times7} + \dfloor{2\times5\times7} + \dfloor{3\times5\times7} -\dfloor{2\times3\times5\times7}
+\end{multline*}
+
+\begin{multline*}
+    |\dlist{2} \cup \dlist{3} \cup \dlist{5} \cup \dlist{7}| = 55 + 37 + 22 + 15 - 18 - 11 - 7 - 7 - 5 - 3\\
+    +3 + 2 + 1 + 1 - 0 = 85
+\end{multline*}
+
+Thus there are 85 numbers less than or equal to 111 that are divisible by 2, 3, 5, or 7, leaving 111-85=26 numbers which are not. One of these 26 numbers is 1, which is defined as not prime, leaving 25 which are primes. Additionally, the numbers 2, 3, 5 and 7 are all prime but are in $\dlist{2} \cup \dlist{3} \cup \dlist{5} \cup \dlist{7}$. Thus we have $26-1+4 = 29$ primes in $[1, 111]$.
+\end{proof}
+
+\section{Spider Socks}
+\ProblemStatement{
+A spider has 8 different feet, 8 different socks, and 8 different shoes. Find the number of orders that the spider can put on socks and shoes such that all socks and shoes are put on once and the $n\ts{th}$ sock is put on before the $n\ts{th}$ shoe for all $n$.}
+There are $\frac{16!}{2^8} = 81,729,648,000$ valid orders. 
+
+\begin{proof}
+Let the $n\ts{th}$ shoe be $S_n$ and the $n\ts{th}$ sock be $O_n$. We want to find all lists consisting of the elements $S_1, S_2, \dots, S_8$, $O_1, O_2, \dots, O_8$ once each in some order such that $O_n$ comes before $S_n$ for all $n$. There are $16!$ permutations of the 16 elements in the list. We then need to divide by two for each $O_i, S_i$ pair since by the quotient principle since regardless of whether the sock or shoe comes first when considering that pair, we only want to count one relative ordering of that sock and shoe. Thus we have a total of $\frac{16!}{2^8}$ valid orders.
+\end{proof}
+
+
+\section{Five Coins}
+\ProblemStatement{
+You and your friend flip 5 fair and independent coins in a row. If any two consecutive coins are HT in order, you score a \say{hit}. If any two consecutive coins are TT in order, your friend scores a \say{hit}. What's the probability that you score one or more hits and your friend does not? What's the probability that you and your friend both score one or more hits?
+}
+
+The probability that you and your friend both \say{hit} and the probability that you \say{hit} while your friend does not are both $\frac{21}{32}$.
+
+\begin{proof}
+The figure below systematically enumerates all possible sequences of flips. Each state consists of a sequence so far, with the upper and lower outgoing edges indicating heads and tails on the next flip, respectively. States in bold indicate you have gotten at least one \say{hit} so far, while underlined states indicate that your friend has gotten at least one \say{hit} so far. After 5 flips, there are $2^5 = 32$ outcomes. There are 21 outcomes where you have gotten a \say{hit} and your friend has not, and 21 outcomes where you and your friend have both gotten a \say{hit}. Since the five coins are independent and fair, the 32 possible outcomes are equally likely and thus each have probability $\frac{1}{32}$. Since the outcomes are disjoint, the probability of any of them happening is the sum of their individual probabilities, giving $\frac{21}{32}$ as the total. Thus the probability that you and your friend both \say{hit} and the probability that you \say{hit} while your friend does not are both $\frac{21}{32}$.
+\end{proof}
+
+\scalebox{0.70}{
+\begin{forest}
+  for tree={
+    grow'=0,
+    child anchor=west,
+    parent anchor=east,
+    anchor=west,
+    calign=center,
+    inner ysep=0.0pt,
+    fit=band,
+    before computing xy={l=110pt},
+  }    
+[Initial State
+[$H$
+    [$HH$
+        [$HHH$
+            [$HHHH$
+                [$HHHHH$ ]
+                [$\textbf{HHHHT}$ ]
+            ]
+            [$\textbf{HHHT}$
+                [$\textbf{HHHTH}$ ]
+                [$\underline{\textbf{HHHTT}}$ ]
+            ]
+        ]
+        [$\textbf{HHT}$
+            [$\textbf{HHTH}$
+                [$\textbf{HHTHH}$ ]
+                [$\textbf{HHTHT}$ ]
+            ]
+            [$\underline{\textbf{HHTT}}$
+                [$\underline{\textbf{HHTTH}}$ ]
+                [$\underline{\textbf{HHTTT}}$ ]
+            ]
+        ]
+    ]
+    [$\textbf{HT}$
+        [$\textbf{HTH}$
+            [$\textbf{HTHH}$
+                [$\textbf{HTHHH}$ ]
+                [$\textbf{HTHHT}$ ]
+            ]
+            [$\textbf{HTHT}$
+                [$\textbf{HTHTH}$ ]
+                [$\underline{\textbf{HTHTT}}$ ]
+            ]
+        ]
+        [$\underline{\textbf{HTT}}$
+            [$\underline{\textbf{HTTH}}$
+                [$\underline{\textbf{HTTHH}}$ ]
+                [$\underline{\textbf{HTTHT}}$ ]
+            ]
+            [$\underline{\textbf{HTTT}}$
+                [$\underline{\textbf{HTTTH}}$ ]
+                [$\underline{\textbf{HTTTT}}$ ]
+            ]
+        ]
+    ]
+]
+[$T$
+    [$TH$
+        [$THH$
+            [$THHH$
+                [$THHHH$ ]
+                [$\textbf{THHHT}$ ]
+            ]
+            [$\textbf{THHT}$
+                [$\textbf{THHTH}$ ]
+                [$\underline{\textbf{THHTT}}$ ]
+            ]
+        ]
+        [$\textbf{THT}$
+            [$\textbf{THTH}$
+                [$\textbf{THTHH}$ ]
+                [$\textbf{THTHT}$ ]
+            ]
+            [$\underline{\textbf{THTT}}$
+                [$\underline{\textbf{THTTH}}$ ]
+                [$\underline{\textbf{THTTT}}$ ]
+            ]
+        ]
+    ]
+    [$\underline{TT}$
+        [$\underline{TTH}$
+            [$\underline{TTHH}$
+                [$\underline{TTHHH}$ ]
+                [$\underline{\textbf{TTHHT}}$ ]
+            ]
+            [$\underline{\textbf{TTHT}}$
+                [$\underline{\textbf{TTHTH}}$ ]
+                [$\underline{\textbf{TTHTT}}$ ]
+            ]
+        ]
+        [$\underline{TTT}$
+            [$\underline{TTTH}$
+                [$\underline{TTTHH}$ ]
+                [$\underline{\textbf{TTTHT}}$ ]
+            ]
+            [$\underline{TTTT}$
+                [$\underline{TTTTH}$ ]
+                [$\underline{TTTTT}$ ]
+            ]
+        ]
+    ]
+]
+]
+\end{forest}
+}
+
+\section{Choosing Compositions}
+\ProblemStatement{
+Prove that for any fixed positive integer $k$, each positive integer $n$ has a unique representation in the form 
+\[
+    n = \binom{b_1}{1} + \binom{b_2}{2} + \binom{b_3}{3} +\dots + \binom{b_k}{k} 
+\]
+where $0 \le b_1 < b_2 < \dots < b_k$.
+}
+
+We prove this by providing a method to construct such a representation given $n$ and $k$.
+We know that $\binom{b_k}{k} \le n$ because each of the terms $\binom{b_1}{1} + \binom{b_2}{2} + \binom{b_3}{3} +\dots + \binom{b_{k-1}}{k-1}$ is greater than or equal to zero, therefore their sum must be greater than or equal to zero. Let $c_k$ be the largest integer such that $\binom{c_k}{k} \le n$. 
+
+We prove that $b_k = c_k$ by contradiction. Assume $b_k$ = $c_k - 1$. Then the largest possible value for $b_{k-1}$ is $c_k-2$, the largest possible value for $b_{k-2}$ is $c_k-3$, etc. This gives $\sum_{i=1}^{k} \binom{c_k-i}{k+1-i} \ge n$. We know that the sum of diagonal elements in Pascal's triangle is $\binom{n}{k} = \sum_{i=1}^{n} \binom{n-i}{k+1-i}$. Thus we have
+\begin{align*}
+    \binom{c_k}{k} &= \left(\sum_{i=1}^{k} \binom{c_k-i}{k+1-i}\right)+\left(\sum_{i=k+1}^{n} \binom{c_k-i}{k+1-i}\right)\\
+    \binom{c_k}{k} - \left(\sum_{i=k+1}^{n} \binom{c_k-i}{k+1-i}\right)&= \left(\sum_{i=1}^{k} \binom{c_k-i}{k+1-i}\right)
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(Note: I think I screwing something up, this should be $\binom{c_k}{k}>n$ so that we can establish a contradiction and thus show that $b_k = c_k$. Unfortunately I don't have time to finish this proof.) 
+
+
+\section{Time Spent \& Thoughts}
+Problems 1-4 weren't very hard but some of them took a long time to write up correctly. I was very unsure about how we were supposed to write up 4 -- are we supposed to start from first principles like the definition of probability measure, or is it ok to gloss over a lot of intuitive stuff? Since we haven't had a probability problem before I wasn't really sure what to do. I probably spent about 10 hours on 1-4.
+Problem 5 was very hard but was interesting. I wrote a program to check for counterexamples and then reworked it to print out how various numbers are decomposed which helped lead me towards a solution, but wasn't able to finish the proof.
+\end{document}
