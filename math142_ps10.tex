@@ -134,11 +134,11 @@ Thus there are 85 numbers less than or equal to 111 that are divisible by 2, 3, 
 
 \section{Spider Socks}
 \ProblemStatement{
-A spider has 8 different feet, 8 different socks, and 8 different shoes. Find the number of orders that the spider can put on socks and shoes such that all socks and shoes are put on once and the $n\ts{th}$ sock is put on before the $n\ts{th}$ shoe for all $n$.}
-There are $\frac{16!}{2^8} = 81,729,648,000$ valid orders. 
+A spider has 8 different feet, 8 different socks, and 8 different shoes. Find the number of orders that the spider can put on socks and shoes such that all socks and shoes are put on once and the $n\ts{th}$ sock is put on before the $n\ts{th}$ shoe for all $n$. Note that any sock can go on any foot and any shoe can go on any foot.}
+There are $\frac{8!^216!}{2^8}$ different valid orders. 
 
 \begin{proof}
-Let the $n\ts{th}$ shoe be $S_n$ and the $n\ts{th}$ sock be $O_n$. We want to find all lists consisting of the elements $S_1, S_2, \dots, S_8$, $O_1, O_2, \dots, O_8$ once each in some order such that $O_n$ comes before $S_n$ for all $n$. There are $16!$ permutations of the 16 elements in the list. We then need to divide by two for each $O_i, S_i$ pair since by the quotient principle since regardless of whether the sock or shoe comes first when considering that pair, we only want to count one relative ordering of that sock and shoe. Thus we have a total of $\frac{16!}{2^8}$ valid orders.
+Let the $n\ts{th}$ shoe be $S_n$ and the $n\ts{th}$ sock be $O_n$. Suppose we wanted to always place the $n\ts{th}$ sock onto the $n\ts{th}$ foot and the $n\ts{th}$ shoe onto the $n\ts{th}$ foot. Then we would want to find all lists consisting of the elements $S_1, S_2, \dots, S_8$, $O_1, O_2, \dots, O_8$ once each in some order such that $O_n$ comes before $S_n$ for all $n$. There are $16!$ permutations of the 16 elements in the list. We then need to divide by two for each $O_i, S_i$ pair by the quotient principle since regardless of whether the sock or shoe comes first when considering that pair, we only want to count one relative ordering of that sock and shoe. This gives a a total of $\frac{16!}{2^8}$ valid orders where the positions of the socks and shoes are fixed. We then multiply by $8!^2$ to account for all the permutations of which sock goes on which foot and which shoe goes on which foot, giving a total of $\frac{8!^216!}{2^8}$.
 \end{proof}
 
 
