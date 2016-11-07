@@ -1,0 +1,273 @@
+\documentclass[12pt]{article}
+\author{David Alves}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{dirtytalk}
+\usepackage[a4paper]{geometry}
+\usepackage{forest}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{multicol}
+\usepackage{nth}
+\usepackage{relsize}
+\usepackage{skak}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{titling}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{patterns}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\def\multichoose#1#2{\ensuremath{\left(\kern-.3em\left(\genfrac{}{}{0pt}{}{#1}{#2}\right)\kern-.3em\right)}}
+
+\newcommand{\ts}[1]{\textsuperscript{#1}}
+
+\newcommand{\ProblemStatement}[1]{
+\subsection*{Problem Statement}
+#1
+\subsection*{Solution}
+}
+
+% If uncommented, next line hides problem statements 
+%\renewcommand{\ProblemStatement}[1]{}
+
+
+\title{Math 142 Problem Set 10}
+\author{David Alves}
+\date{2016-11-03}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\begin{center}
+\large \thetitle \\
+\theauthor \\
+\thedate
+\end{center}
+
+\subsection*{Sources}
+
+    \begin{itemize}
+    \item http://tex.stackexchange.com and https://www.sharelatex.com for help with \LaTeX
+    \end{itemize}
+
+\section{Strange Dice (Optional)}
+\ProblemStatement{
+How many ways are there to make two fair 6-sided dice with natural number values (fair in the sense that each face lands up with same probability, but the sides can have freedom of numbers, including duplication) such that rolling them gives the same probability distribution on the sum of the two dice as two normal fair 6-sided dice? (for example, if we have a die with sides (0, 1, 2, 3, 4, 5) and another with sides (2,3,4,5,6,7), we get the same distribution as two normal dice (why?) but this is not legal as I wanted natural numbers)
+}
+
+Let $S_1$ and $S_2$ be a pair of dice.
+Since a normal pair of dice can produce the sum 2 and the lowest number that can be present on our dice is a 1, our dice must each have a 1. Since the highest number that can be produced by a normal pair of dice is 12
+
+\section{Paths Through Trees}
+\ProblemStatement{
+Recall that a tree has many definitions. Suppose you're only allowed to use the definition that there are n − 1 edges on n vertices with no cycles. Prove that you can go from any vertex to any other vertex via a path (i.e. the tree is not separated into 2 parts inaccessible from each other).
+}
+
+Label the edges $e_1, e_2, \dots, e_{n-1}$. Add the edges one at a time to the graph. Before any edges have been added, the graph consists of $n$ connected components, each with one vertex. Now add $e_1$ to the graph, which connects two separate connected components, leaving $n-1$ connected components. Each additional edge added to the graph 
+
+
+\section{Triangle Game (Optional)}
+\ProblemStatement{
+Describe (and prove) an optimal strategy of playing the triangle game we played in class for n = 5 vertices.
+}
+
+Below is a diagram showing a winning strategy for Player 1. Solid edges are Player 1 moves, while dashed edges are Player 2 moves. Only one graph per isomorphic group is shown.
+\colorlet{lightred}{red!45}
+
+\begin{center}
+\begin{tikzpicture}
+    \node[shape=circle,draw=black] (A1) at (4+0,24+1) {};
+    \node[shape=circle,draw=black] (B1) at (4+.951,24+.309) {};
+    \node[shape=circle,draw=black] (C1) at (4+.588,24-.809) {};
+    \node[shape=circle,draw=black] (D1) at (4-.588,24-.809) {};
+    \node[shape=circle,draw=black] (E1) at (4-.951,24+.309) {} ;
+    \path [-,line width=1pt,color=blue] (A1) edge node[left] {} (B1) node[yshift=-6.5em,color=black] {Initial Move};
+    
+    \draw [->,line width=2.5,black!25] (2.5,22.5) -- (1.5,21.5);    
+    \node[shape=circle,draw=black] (A2) at (0+0,20+1) {};
+    \node[shape=circle,draw=black] (B2) at (0+.951,20+.309) {};
+    \node[shape=circle,draw=black] (C2) at (0+.588,20-.809) {};
+    \node[shape=circle,draw=black] (D2) at (0-.588,20-.809) {};
+    \node[shape=circle,draw=black] (E2) at (0-.951,20+.309) {} ;
+    \path [-,line width=1pt] (A2) edge node[left] {} (B2) node[yshift=-6.5em] {\parbox{4.5cm}{Player 2's move shares a vertex with initial move}};
+    \path [-,line width=1pt,style=dashed,color=blue] (A2) edge node[left] {} (C2);
+    
+    \draw [->,line width=2.5,black!25] (5.5,22.5) -- (6.5,21.5);
+    \node[shape=circle,draw=black] (A3) at (8+0,20+1) {};
+    \node[shape=circle,draw=black] (B3) at (8+.951,20+.309) {};
+    \node[shape=circle,draw=black] (C3) at (8+.588,20-.809) {};
+    \node[shape=circle,draw=black] (D3) at (8-.588,20-.809) {};
+    \node[shape=circle,draw=black] (E3) at (8-.951,20+.309) {} ;
+    \path [-,line width=1pt] (A3) edge node[left] {} (B3) node[yshift=-6.5em] {\parbox{5.5cm}{Player 2's move does not share a vertex with initial move}};
+    \path [-,line width=1pt,style=dashed,color=blue] (D3) edge node[left] {} (C3);
+
+    \draw [->,line width=2.5,black!25] (0,17.5) -- (0,16.5);
+    \node[shape=circle,draw=black] (A4) at (0+0,15+1) {};
+    \node[shape=circle,draw=black] (B4) at (0+.951,15+.309) {};
+    \node[shape=circle,draw=black] (C4) at (0+.588,15-.809) {};
+    \node[shape=circle,draw=black] (D4) at (0-.588,15-.809) {};
+    \node[shape=circle,draw=black] (E4) at (0-.951,15+.309) {} ;
+    \path [-,line width=1pt] (A4) edge node[left] {} (B4) node[yshift=-6.5em] {};
+    \path [-,line width=1pt,style=dashed] (A4) edge node[left] {} (C4);
+    \path [-,line width=1pt,color=blue] (A4) edge node[left] {} (E4);
+    
+    \draw [->,line width=2.5,black!25] (8,17.5) -- (8,16.5);
+    \node[shape=circle,draw=black] (A5) at (8+0,15+1) {};
+    \node[shape=circle,draw=black] (B5) at (8+.951,15+.309) {};
+    \node[shape=circle,draw=black] (C5) at (8+.588,15-.809) {};
+    \node[shape=circle,draw=black] (D5) at (8-.588,15-.809) {};
+    \node[shape=circle,draw=black] (E5) at (8-.951,15+.309) {} ;
+    \path [-,line width=1pt] (A5) edge node[left] {} (B5) node[yshift=-6.5em] {};
+    \path [-,line width=1pt,style=dashed] (D5) edge node[left] {} (C5);
+    \path [-,line width=1pt,color=blue] (A5) edge node[left] {} (E5);
+    
+    \draw [->,line width=2.5,black!25] (0,13) -- (0,12);
+    \node[shape=circle,draw=black] (A6) at (0+0,10+1) {};
+    \node[shape=circle,draw=black] (B6) at (0+.951,10+.309) {};
+    \node[shape=circle,draw=black] (C6) at (0+.588,10-.809) {};
+    \node[shape=circle,draw=black] (D6) at (0-.588,10-.809) {};
+    \node[shape=circle,draw=black] (E6) at (0-.951,10+.309) {} ;
+    \path [-,line width=1pt] (A6) edge node[left] {} (B6) node[yshift=-6.3em] {Forced move for player 2};
+    \path [-,line width=1pt,style=dashed] (A6) edge node[left] {} (C6);
+    \path [-,line width=1pt] (A6) edge node[left] {} (E6);
+    \path [-,line width=1pt,style=dashed,color=blue] (E6) edge node[left] {} (B6);
+
+    \draw [->,line width=2.5,black!25] (8,13) -- (8,12);    
+    \node[shape=circle,draw=black] (A7) at (8+0,10+1) {};
+    \node[shape=circle,draw=black] (B7) at (8+.951,10+.309*1.3) {};
+    \node[shape=circle,draw=black] (C7) at (8+.588,10-.809*1.3) {};
+    \node[shape=circle,draw=black] (D7) at (8-.588,10-.809*1.3) {};
+    \node[shape=circle,draw=black] (E7) at (8-.951,10+.309*1.3) {} ;
+    \path [-,line width=1pt] (A7) edge node[left] {} (B7) node[yshift=-6.3em] {Forced move for player 2};
+    \path [-,line width=1pt,style=dashed] (D7) edge node[left] {} (C7);
+    \path [-,line width=1pt] (A7) edge node[left] {} (E7);
+    \path [-,line width=1pt,style=dashed,color=blue] (E7) edge node[left] {} (B7);
+    
+    \draw [->,line width=2.5,black!25] (0,7.75) -- (0,6.75);
+    \node[shape=circle,draw=black] (A8) at (0+0,5+1) {};
+    \node[shape=circle,draw=black] (B8) at (0+.951,5+.309) {};
+    \node[shape=circle,draw=black] (C8) at (0+.588,5-.809) {};
+    \node[shape=circle,draw=black] (D8) at (0-.588,5-.809) {};
+    \node[shape=circle,draw=black] (E8) at (0-.951,5+.309) {} ;
+    \path [-,line width=1pt] (A8) edge node[left] {} (B8) node[yshift=-7em] {\parbox{7.1cm}{Player 1 has forced a win because Player 2 can only play one of the moves in red; Player 1 will use the other to win}};
+    \path [-,line width=1pt,style=dashed] (A8) edge node[left] {} (C8);
+    \path [-,line width=1pt] (A8) edge node[left] {} (E8);
+    \path [-,line width=1pt,style=dashed] (E8) edge node[left] {} (B8);
+    \path [-,line width=1pt,color=blue] (A8) edge node[left] {} (D8);
+    \path [-,line width=1pt,style=dashed,color=lightred] (E8) edge node[left] {} (D8);
+    \path [-,line width=1pt,style=dashed,color=lightred] (B8) edge node[left] {} (D8);
+
+    \draw [->,line width=2.5,black!25] (8,7.75) -- (8,6.75);
+    \node[shape=circle,draw=black] (A9) at (8+0,5+1) {};
+    \node[shape=circle,draw=black] (B9) at (8+.951,5+.309) {};
+    \node[shape=circle,draw=black] (C9) at (8+.588,5-.809) {};
+    \node[shape=circle,draw=black] (D9) at (8-.588,5-.809) {};
+    \node[shape=circle,draw=black] (E9) at (8-.951,5+.309) {} ;
+    \path [-,line width=1pt] (A9) edge node[left] {} (B9) node[yshift=-7em] {\parbox{7.1cm}{Player 1 has forced a win because Player 2 can only play one of the moves in red; Player 1 will use the other to win}};
+    \path [-,line width=1pt,style=dashed] (D9) edge node[left] {} (C9);
+    \path [-,line width=1pt] (A9) edge node[left] {} (E9);
+    \path [-,line width=1pt,style=dashed] (E9) edge node[left] {} (B9);
+    \path [-,line width=1pt,color=blue] (A9) edge node[left] {} (D9);
+    \path [-,line width=1pt,style=dashed,color=lightred] (E9) edge node[left] {} (D9);
+    \path [-,line width=1pt,style=dashed,color=lightred] (B9) edge node[left] {} (D9);
+\end{tikzpicture}
+\end{center}
+
+\section{Sum of Choices}
+\ProblemStatement{
+    Calculate $\sum_{k=1}^n \binom{k}{m} \frac{1}{k}$.
+}
+
+We know that the sum of diagonal elements in Pascal's triangle is equal to $\binom{1}{1}$, therefore this is a very easy problem, right?
+\begin{align*}
+    \sum_{k=1}^n \binom{k}{m} \frac{1}{k}\\
+    \frac{1}{k} \sum_{k=1}^n \binom{k}{m}\\
+\end{align*}
+
+
+
+\section{Counting Functions}
+\ProblemStatement{
+How many functions $f : [n] \rightarrow [n]$ are there such that for all $i < j$, we have $f(i) \leq f(j)$?
+}
+There are $\binom{2n-1}{n}$ functions on $[n] \rightarrow [n]$ such that for all $i < j$, $f(i) \leq f(j)$.
+
+There is a bijection between these functions and paths from $(0, 0)$ to $(n, n-1)$ which consist of single steps $(+1, 0)$ or $(0, +1)$ as follows:
+\begin{enumerate}
+    \item For each value $a$ in the domain of $f$, draw a dot at $(a, f(a)-1$
+\end{enumerate}
+\newcommand{\bijectpath}[3]{
+\scalebox{.8}{
+\begin{tikzpicture}
+\draw[step=1.0,black,thin,color=black,opacity=.35] (0,0) grid (3,2);
+\draw [-,line width=1pt] (0,0) -- (0,#1-1) --
+    (1, #1-1) node[shape=circle,fill=black,minimum width=.2cm,inner sep=0pt] {} -- 
+    (1, #2-1) --
+    (2, #2-1) node[shape=circle,fill=black,minimum width=.2cm,inner sep=0pt] {} -- 
+    (2, #3-1) --
+    (3, #3-1)node[shape=circle,fill=black,minimum width=.2cm,inner sep=0pt] {} -- 
+    (3, 2);
+\node [above] at (6,-.5) {\parbox{3em}{
+    \begin{align*}
+    \iff f(x) = 
+    \begin{cases}
+    #1 &: x=1\\
+    #2 &: x=2\\
+    #3 &: x=3\\
+\end{cases}
+    \end{align*}
+}};
+\end{tikzpicture}
+}
+}
+
+\pagebreak
+\begin{multicols}{2}
+\noindent
+\bijectpath{1}{1}{1}
+\bijectpath{1}{1}{2}
+\bijectpath{1}{1}{3}
+\bijectpath{1}{2}{2}
+\bijectpath{1}{2}{3}
+\bijectpath{1}{3}{3}
+\bijectpath{2}{2}{2}
+\bijectpath{2}{2}{3}
+\bijectpath{2}{3}{3}
+\bijectpath{3}{3}{3}
+\end{multicols}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Time Spent \& Thoughts}
+\end{document}
