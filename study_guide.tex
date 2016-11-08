@@ -311,6 +311,8 @@ Assume that an edge coloring exists such that each edge is either black or white
 \item Each item is the sum of the two above it: $\binom{n-1}{k-1} + \binom{n-1}{k} = \binom{n}{k}$
 \item Sum of $n^{\text{th}}$ row $\sum_{k=0}^{n}\binom{n}{k}=2^n$
 \item Sum of even-indexed terms in row $n$ = Sum of odd-indexed terms in row $n$ = Sum of terms in row $n-1$.
+\item Sum of diagonal elements (down-and-to-the-left): $\sum_{k=m}^n \binom{k}{m} = \binom{n+1}{m+1}$
+\item Sum of diagonal elements (down-and-to-the-right): $\sum_{k=0}^n \binom{m+k}{k} = \binom{m+n+1}{n}$
 \end{itemize}
 \subsection{Binomial Theorem}
 \begin{align*}

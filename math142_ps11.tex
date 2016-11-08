@@ -198,12 +198,19 @@ We know that the sum of diagonal elements in Pascal's triangle is equal to $\bin
 \ProblemStatement{
 How many functions $f : [n] \rightarrow [n]$ are there such that for all $i < j$, we have $f(i) \leq f(j)$?
 }
-There are $\binom{2n-1}{n}$ functions on $[n] \rightarrow [n]$ such that for all $i < j$, $f(i) \leq f(j)$.
 
-There is a bijection between these functions and paths from $(0, 0)$ to $(n, n-1)$ which consist of single steps $(+1, 0)$ or $(0, +1)$ as follows:
+There are $\binom{2n-1}{n}$ functions on $[n] \rightarrow [n]$ such that for all $i < j$, $f(i) \leq f(j)$. 
+
+\begin{proof}
+There is a bijection between these functions and paths from $(0, 0)$ to ${(n, n-1)}$ which consist of single steps $(+1, 0)$ or $(0, +1)$. To construct such a path from a function, do the following:
 \begin{enumerate}
-    \item For each value $a$ in the domain of $f$, draw a dot at $(a, f(a)-1$
+    \item For each value $a$ in the domain of $f$, draw a step from at $(a-1, f(a)-1)$ to $(a, f(a)-1)$. 
+    \item Draw vertical lines to connect the horizontal steps, as needed.
+    \item Draw vertical lines to connect $(0,0)$ to $(0, f(1)-1)$ and $(n, f(n)-1)$ to $(n,n-1)$, as needed.
 \end{enumerate}
+
+Additionally, any path from $(0,0)$ to $(n,n-1)$ consisting of only steps $(+1, 0)$ or $(0, +1)$ has a unique corresponding function $f(i)$ defined by $f(i) = y-$coordinate of the step from $x=i$ to $x=i+1$. Thus there's a bijection between these paths and these functions. We know from previous work that the number of such paths is equal to $\binom{2n-1}{n}$ since it is equivalent to having a list made up of $2n-1$ instructions, $n$ of which are \say{go right} while the rest are \say{go up}.
+\end{proof}
 \newcommand{\bijectpath}[3]{
 \scalebox{.8}{
 \begin{tikzpicture}
