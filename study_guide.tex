@@ -444,4 +444,67 @@ Example for $n=4:$
 \term{$K_n$} A \emph{complete} graph on $n$ vertices (all possible edges exist)\\
 \term{$K_{n,m}$} A \emph{bipartite} graph with $n$ vertices in one set and $m$ vertices in the other. Every edge between a vertex in $n$ and a vertex in $m$ exists, and no other edges exist.\\
 }
+
+
+\section{Group Actions}
+
+\termtable{
+\term{permutation} A function $g: \{1,2,\dots,n \} \rightarrow \{1,2,\dots,n\} $ which is a bijection. Example: $f(1) = 2, f(2) = 4, f(3) = 3, f(4) = 1$. Can be written $\left(\frac{1234}{2431}\right)$ or $(2431)$\\
+\term{$S_n$} The set of all permutations of size $n$. $|S_n| = n!$\\
+
+\term{composition} A composition of permutations $g_1$ and $g_2$ is also a permutation. $g_1(g_2(x))$ is written as $(g_1g_2)(x)$ or $g_1 \circ g_2 (x)$. (Note that you need to apply the permutations from right to left)\\
+\term{(id)} The permutation which sends x to itself, e.g. $f(x) = x$\\
+\term{associativity} A composition of permutations is associative, meaning $(g_1g_2)g_3 = g_1(g_2g_3)$.\\
+\term{inverse} For all $g$, there exists $g^{-1}$ such that $g\circ g^{-1} = \textbf{(id)}$\\
+\term{\parbox{4cm}{\raggedleft directed graph notation}} 
+\begin{tikzpicture}
+\node[shape=circle] (A) at (0,0) {$1$};
+\node[shape=circle] (B) at (1,.5) {$2$};
+\node[shape=circle] (C) at (2,0) {$3$};
+\node[shape=circle] (D) at (2.5,0) {$4$};
+\draw [->] (A) edge[bend left=10] (B);
+\draw [->] (B) edge[bend left=10] (C);
+\draw [->] (C) edge[bend left=10] (A);
+\draw [->] (D) edge[loop above,looseness=6] (D);
+\end{tikzpicture}
+Every permutation can be represented as a directed graph where each node has one incoming edge and one outgoing edge. Every node participates in exactly one cycle.
+\\
+\term{cycle notation} Expresses a permutation in terms of cycles. The above example is written $(123)(4)$. This is very handy for performing multiplication. To multiply $A\times B$, for each number find the next number in the $B$-cycle, then find the number after that in the $A$-cycle, and put that in the result. As soon as you get back to the first number in your cycle, start a new cycle. Example: $\Big[(123)(465)\Big] \times \Big[(13542)(6)\Big] = (1)(2)(34)(56)$ (First digit: $1\rightarrow3$ in $B$, then $3\rightarrow1$ in $A$, so 1 is in a cycle by itself in the result)\\
+}
+
+
+
+
+\section{Groups}
+A group $G$ is a \textbf{set} with a function $G\times G \rightarrow G$ such that:
+\begin{enumerate}
+    \item \emph{Identity}: There exists $\textbf{id} \in G$ such that $\textbf{id}*g = g$ for all $g \in G$.
+    \item \emph{Closure}: For all $g_1, g_2 \in G$, $g_1*g_2 \in G$
+    \item \emph{Associativity}: $(g_1*g_2)*g_3 = g_1*(g_2*g_3)$
+    \item \emph{Inverse}: For all $g$, there exists $g^{-1} \in G$ such that $g*g^{-1} = \textbf{id}$
+\end{enumerate}
+A subgroup $H$ of $(G,*)$ is a subset of G which is a group under *.
+A subgroup of $S_n$ is a \textbf{permutation group}
+$C_n$ is a subset of $S_n$, the cyclic group. (Not the cycle graph $C_n$ or the Catalan number $C_n$)
+
+\subsection{Examples}
+\begin{itemize}
+\item $(\mathbb{R},*)$ is not a group because 0 has no inverse.
+\item $(\mathbb{R}\backslash\{0\},*)$ is a group with $\textbf{id} = 1$
+\item $(\mathbb{R},+)$ is a group with $\textbf{id} = 0$
+\item $(\mathbb{R}\backslash\{0\},*)$ is a group with $\textbf{id} = 1$
+\item $(\mathbb{Z}\slash 7\mathbb{Z},+)$ is a group with $\textbf{id} = 1$. $\mathbb{Z}\slash 7\mathbb{Z}$ means using modular arithmetic, so $5 + 5 = 3$ (because 10 mod 7 is 3).
+\item $(\mathbb{Z}\slash n\mathbb{Z}\backslash\{0\},*)$ is a group with $\textbf{id} = 1$ if and only if $n$ is prime. If $n$ is composite, then there is then for let $f$ be a factor of $n$. There is no $f^{-1}$ because $f$ times anything is never going to be 1.
+ 
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
 \end{document}
