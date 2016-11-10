@@ -39,9 +39,9 @@
 %\renewcommand{\ProblemStatement}[1]{}
 
 
-\title{Math 142 Problem Set 10}
+\title{Math 142 Problem Set 11}
 \author{David Alves}
-\date{2016-11-03}
+\date{2016-11-10}
 
 \begin{document}
 \pagenumbering{gobble}
@@ -56,6 +56,8 @@
 
     \begin{itemize}
     \item http://tex.stackexchange.com and https://www.sharelatex.com for help with \LaTeX
+    \item Wikipedia for definition of Harmonic numbers
+    \item Wolfram$\vert$Alpha for help with factoring polynomials
     \end{itemize}
 
 \section{Strange Dice (Optional)}
@@ -63,15 +65,43 @@
 How many ways are there to make two fair 6-sided dice with natural number values (fair in the sense that each face lands up with same probability, but the sides can have freedom of numbers, including duplication) such that rolling them gives the same probability distribution on the sum of the two dice as two normal fair 6-sided dice? (for example, if we have a die with sides (0, 1, 2, 3, 4, 5) and another with sides (2,3,4,5,6,7), we get the same distribution as two normal dice (why?) but this is not legal as I wanted natural numbers)
 }
 
-Let $S_1$ and $S_2$ be a pair of dice.
-Since a normal pair of dice can produce the sum 2 and the lowest number that can be present on our dice is a 1, our dice must each have a 1. Since the highest number that can be produced by a normal pair of dice is 12
+There are two ways: $(1,2,3,4,5,6)\times2$ and $(1,2,2,3,3,4), (1,3,4,5,6,8)$.
+\begin{proof}
+You can represent normal die using the generating function $x + x^2 + x^3 + x^4 + x^5 + x^6$, since there is one way to get each possible value in $[1,6]$. Rolling two normal dice is represented by squaring the generating function as follows:
+
+\begin{multline*}
+(x + x^2 + x^3 + x^4 + x^5 + x^6)^2 = \\x^2+2 x^3+3 x^4+4 x^5+5 x^6+6 x^7+5 x^8+4 x^9+3 x^{10}+2x^{11}+x^{12}
+\end{multline*}
+
+This question asks how many ways to factor this polynomial into two polynomials $A$ and $B$ such that:
+\begin{enumerate}
+    \item Every side has a natural number of dots, meaning that every term in both $A$ and $B$ is at least $x$.
+    \item Each die has six sides, meaning that $A$ and $B$ both contain six terms. 
+\end{enumerate}
+
+We first factor the polynomial:
+\begin{align*}
+    (x + x^2 + x^3 + x^4 + x^5 + x^6)^2 &= \left(x(1 + x + x^2 + x^3 + x^4 + x^5)\right)^2\\
+    &= \left(x\frac{(x^6-1)}{x-1}\right)^2\\
+    &= \left(x\frac{(x + 1)(x^2 - x + 1)(x-1)(x^2+x+1)}{x-1}\right)^2\\
+    &= \left(x(x + 1)(x^2 - x + 1)(x^2+x+1)\right)^2\\
+    &= x^2(x + 1)^2(x^2 - x + 1)^2(x^2+x+1)^2\\
+\end{align*}
+
+Since we know that every term in $A$ and $B$ is at least $x$, each of them needs to get one of the two $x$ factors. Trying each of the possible ways to distribute the remaining factors gives two valid arrangements:
+\begin{multline*}
+    A = B = x(x+1)(x^2 - x + 1)(x^2+x+1) = (1,2,3,4,5,6)\times 2 \text{ (Normal dice)}\\
+    A = x(x+1)(x^2 - x + 1)^2(x^2+x+1), B = x(x+1)(x^2+x+1)\\
+    = (1,2,2,3,3,4), (1,3,4,5,6,8) \text{ (Strange dice)}\\
+\end{multline*}
+\end{proof}
 
 \section{Paths Through Trees}
 \ProblemStatement{
-Recall that a tree has many definitions. Suppose you're only allowed to use the definition that there are n − 1 edges on n vertices with no cycles. Prove that you can go from any vertex to any other vertex via a path (i.e. the tree is not separated into 2 parts inaccessible from each other).
+Recall that a tree has many definitions. Suppose you're only allowed to use the definition that there are $n - 1$ edges on $n$ vertices with no cycles. Prove that you can go from any vertex to any other vertex via a path (i.e. the tree is not separated into 2 parts inaccessible from each other).
 }
 
-Label the edges $e_1, e_2, \dots, e_{n-1}$. Add the edges one at a time to the graph. Before any edges have been added, the graph consists of $n$ connected components, each with one vertex. Now add $e_1$ to the graph, which connects two separate connected components, leaving $n-1$ connected components. Each additional edge added to the graph 
+Let a \emph{connected component} be a set of vertices and edges such that you can get from any vertex in the component to any other vertex via some path which is a subset of that component's edges. Consider the edges of the graph in some arbitrary order. We will add the edges one at a time to the graph. Before any edges have been added, the graph consists of $n$ connected components each with one vertex. Now add the first edge to the graph, which connects two separate connected components (each with 1 vertex), leaving $n-1$ connected components. Each additional edge added to the graph connects two vertices in separate connected components, turning them into a single connected component. It must connect two vertices in different connected components because if the edge connected some $u,v$ inside the same connected component then there would be two paths from $u$ to $v$: One using the new edge and one through the other edges in that connected component, which contradicts our statement that there are no cycles. Thus each edge added to the graph reduces the number of connected components by one, so after adding all $n-1$ edges there is only one connected component, and thus you can get from any vertex to any other vertex via a path.
 
 
 \section{Triangle Game (Optional)}
@@ -79,7 +109,7 @@ Label the edges $e_1, e_2, \dots, e_{n-1}$. Add the edges one at a time to the g
 Describe (and prove) an optimal strategy of playing the triangle game we played in class for n = 5 vertices.
 }
 
-Below is a diagram showing a winning strategy for Player 1. Solid edges are Player 1 moves, while dashed edges are Player 2 moves. Only one graph per isomorphic group is shown.
+Below is a diagram showing a strategy for Player 1 that can force a win regardless of how Player 2 plays. Solid edges are Player 1 moves, while dashed edges are Player 2 moves. Only one graph per isomorphic group is shown.
 \colorlet{lightred}{red!45}
 
 \begin{center}
@@ -181,16 +211,33 @@ Below is a diagram showing a winning strategy for Player 1. Solid edges are Play
 \end{tikzpicture}
 \end{center}
 
+
 \section{Sum of Choices}
 \ProblemStatement{
     Calculate $\sum_{k=1}^n \binom{k}{m} \frac{1}{k}$.
 }
 
-We know that the sum of diagonal elements in Pascal's triangle is equal to $\binom{1}{1}$, therefore this is a very easy problem, right?
+\[
+    \sum_{k=1}^n \binom{k}{m} \frac{1}{k} = 
+    \begin{cases}
+        H_n &: m = 0\\
+        \frac{1}{m} \binom{n}{m} &: m \ge 1\\
+    \end{cases}
+\]
+
+\begin{proof}
+For $m=0$, we have $\sum_{k=1}^n \frac{1}{k} = H_n$, the nth harmonic number by definition.
+For $m \ge 1$,
 \begin{align*}
-    \sum_{k=1}^n \binom{k}{m} \frac{1}{k}\\
-    \frac{1}{k} \sum_{k=1}^n \binom{k}{m}\\
+    \sum_{k=1}^n \binom{k}{m} \frac{1}{k} &=\sum_{k=1}^n \frac{k!}{m!(k-m)!} \frac{1}{k}\\
+    &=\sum_{k=1}^n \frac{(k-1)!}{m!(k-m)!}\\
+    &=\frac{1}{m} \sum_{k=1}^n \frac{(k-1)!}{(m-1)!(k-m)!}\\
+    &=\frac{1}{m} \sum_{k=1}^n \binom{k-1}{m-1}
 \end{align*}
+
+From previous work, we know that the sum of diagonal elements in Pascal's triangle is $\sum_{a=0}^b \binom{a}{c} = \binom{b+1}{c+1}$, thus by setting $a=k-1$, $c=m-1$, $b=n-1$ we obtain $\sum_{k=1}^n \binom{k-1}{m-1}=\binom{n}{m}$ and thus $
+    \sum_{k=1}^n \binom{k}{m} \frac{1}{k} = \frac{1}{m} \binom{n}{m}: m \ge 1$.
+\end{proof}
 
 
 
@@ -209,10 +256,9 @@ There is a bijection between these functions and paths from $(0, 0)$ to ${(n, n-
     \item Draw vertical lines to connect $(0,0)$ to $(0, f(1)-1)$ and $(n, f(n)-1)$ to $(n,n-1)$, as needed.
 \end{enumerate}
 
-Additionally, any path from $(0,0)$ to $(n,n-1)$ consisting of only steps $(+1, 0)$ or $(0, +1)$ has a unique corresponding function $f(i)$ defined by $f(i) = y-$coordinate of the step from $x=i$ to $x=i+1$. Thus there's a bijection between these paths and these functions. We know from previous work that the number of such paths is equal to $\binom{2n-1}{n}$ since it is equivalent to having a list made up of $2n-1$ instructions, $n$ of which are \say{go right} while the rest are \say{go up}.
+Additionally, any path from $(0,0)$ to $(n,n-1)$ consisting of only steps $(+1, 0)$ or $(0, +1)$ has a unique corresponding function $f(i)$ defined by $f(i) = 1 + y-$coordinate of the step from $x=i$ to $x=i+1$. Thus there's a bijection between these paths and these functions. We know from previous work that the number of such paths is equal to $\binom{2n-1}{n}$ since it is equivalent to having a list made up of $2n-1$ instructions, $n$ of which are \say{go right} while the rest are \say{go up}.
 \end{proof}
-\newcommand{\bijectpath}[3]{
-\scalebox{.8}{
+\newcommand{\bijectpath}[3]{\scalebox{.8}{
 \begin{tikzpicture}
 \draw[step=1.0,black,thin,color=black,opacity=.35] (0,0) grid (3,2);
 \draw [-,line width=1pt] (0,0) -- (0,#1-1) --
@@ -222,13 +268,13 @@ Additionally, any path from $(0,0)$ to $(n,n-1)$ consisting of only steps $(+1, 
     (2, #3-1) --
     (3, #3-1)node[shape=circle,fill=black,minimum width=.2cm,inner sep=0pt] {} -- 
     (3, 2);
-\node [above] at (6,-.5) {\parbox{3em}{
+\node [above] at (5.85,-.5) {\parbox{3em}{
     \begin{align*}
     \iff f(x) = 
     \begin{cases}
-    #1 &: x=1\\
-    #2 &: x=2\\
-    #3 &: x=3\\
+    #1&: x=1\\
+    #2&: x=2\\
+    #3&: x=3\\
 \end{cases}
     \end{align*}
 }};
@@ -236,45 +282,17 @@ Additionally, any path from $(0,0)$ to $(n,n-1)$ consisting of only steps $(+1, 
 }
 }
 
-\pagebreak
-\begin{multicols}{2}
-\noindent
-\bijectpath{1}{1}{1}
-\bijectpath{1}{1}{2}
-\bijectpath{1}{1}{3}
-\bijectpath{1}{2}{2}
-\bijectpath{1}{2}{3}
-\bijectpath{1}{3}{3}
-\bijectpath{2}{2}{2}
-\bijectpath{2}{2}{3}
-\bijectpath{2}{3}{3}
-\bijectpath{3}{3}{3}
-\end{multicols}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\noindent\ignorespacesafterend
+\bijectpath{1}{1}{1} \hspace{2em} \bijectpath{1}{1}{2}\\
+\bijectpath{1}{1}{3} \hspace{2em} \bijectpath{1}{2}{2}\\
+\bijectpath{1}{2}{3} \hspace{2em} \bijectpath{1}{3}{3}\\
+\bijectpath{2}{2}{2} \hspace{2em} \bijectpath{2}{2}{3}\\
+\bijectpath{2}{3}{3} \hspace{2em} \bijectpath{3}{3}{3}
 
 
 
 
 
 \section{Time Spent \& Thoughts}
+This was really time consuming. I either need to stop trying to do the optional problems or not attempt to take this class while working full time. :) I probably spent about 15 hours on this assignment. I enjoyed problems 1, 3, and 5 quite a bit. Problem 4 took a long time to figure out and wasn't very interesting, although it's probably good practice.
 \end{document}
