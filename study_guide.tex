@@ -458,7 +458,7 @@ A group $G$ is a \textbf{set} with a function $G\times G \rightarrow G$ such tha
 \termtable{
 \term{subgroup} A subgroup $H$ of $(G,*)$ is a subset of G which is a group under *.\\
 \term{permutation group} A subgroup of $S_n$\\
-\term{cyclic group $C_n$} A subset of $S_n$. (Not the cycle graph $C_n$ or the Catalan number $C_n$)
+\term{cyclic group $C_n$} A subset of $S_n$ that rotates the elements. Elements of $C_n$: permutation that moves 
 
 }
 \subsection{Examples}
@@ -499,15 +499,14 @@ Every permutation can be represented as a directed graph where each node has one
 }
 
 
-\section{Coloring}
+\section{Colorings and Orbits}
 
 \termtable{
 \term{coloring} A coloring is a function $f: S \rightarrow C$, where $S$ is a set and $C$ is a set of colors.\\
-\term{$\overline{g}$} s\\
+\term{$\overline{g}$} If $g: [n] \rightarrow [n]$ is a permutation and $f: [n] \rightarrow C$ is a coloring such that $f(i) = c$, $\overline{g}: ([n] \rightarrow C) \rightarrow ([n] \rightarrow C)$ is the function such that $(\overline{g} f)(i)=c$\\
+\term{orbit} Orbits are equivalence classes under some set of actions. The orbit of $x \in X$ under $G$ is $\{g(x) \vert g \in G\}$. E.g. (Red, Red, Green) is in the same equivalence class as (Green, Red, Red) and (Red, Green, Red).\\
+\term{$Fix(g)$} Set of $x$ such that $g(x)=x$. E.g. if g(x) is the identity permutation on 6 elements, there are 64 possible colorings of the 6 elements such that $g(x) = x$ because $g(x)$ leaves $x$ unchanged for every possible coloring $x$.\\
 }
-
-
-
 
 
 
