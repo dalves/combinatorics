@@ -444,7 +444,33 @@ Example for $n=4:$
 \term{$K_n$} A \emph{complete} graph on $n$ vertices (all possible edges exist)\\
 \term{$K_{n,m}$} A \emph{bipartite} graph with $n$ vertices in one set and $m$ vertices in the other. Every edge between a vertex in $n$ and a vertex in $m$ exists, and no other edges exist.\\
 }
+\pagebreak
+\section{Groups}
+A group $G$ is a \textbf{set} with a function $G\times G \rightarrow G$ such that:
+\begin{enumerate}
+    \item \emph{Identity}: There exists $\textbf{id} \in G$ such that $\textbf{id}*g = g$ for all $g \in G$.
+    \item \emph{Closure}: For all $g_1, g_2 \in G$, $g_1*g_2 \in G$
+    \item \emph{Associativity}: $(g_1*g_2)*g_3 = g_1*(g_2*g_3)$
+    \item \emph{Inverse}: For all $g$, there exists $g^{-1} \in G$ such that $g*g^{-1} = \textbf{id}$
+\end{enumerate}
 
+
+\termtable{
+\term{subgroup} A subgroup $H$ of $(G,*)$ is a subset of G which is a group under *.\\
+\term{permutation group} A subgroup of $S_n$\\
+\term{cyclic group $C_n$} A subset of $S_n$. (Not the cycle graph $C_n$ or the Catalan number $C_n$)
+
+}
+\subsection{Examples}
+\begin{itemize}
+\item $(\mathbb{R},*)$ is not a group because 0 has no inverse.
+\item $(\mathbb{R}\backslash\{0\},*)$ is a group with $\textbf{id} = 1$
+\item $(\mathbb{R},+)$ is a group with $\textbf{id} = 0$
+\item $(\mathbb{R}\backslash\{0\},*)$ is a group with $\textbf{id} = 1$
+\item $(\mathbb{Z}\slash 7\mathbb{Z},+)$ is a group with $\textbf{id} = 1$. $\mathbb{Z}\slash 7\mathbb{Z}$ means using modular arithmetic, so $5 + 5 = 3$ (because 10 mod 7 is 3).
+\item $(\mathbb{Z}\slash n\mathbb{Z}\backslash\{0\},*)$ is a group with $\textbf{id} = 1$ if and only if $n$ is prime. If $n$ is composite, then there is then for let $f$ be a factor of $n$. There is no $f^{-1}$ because $f$ times anything is never going to be 1.
+ 
+\end{itemize}
 
 \section{Group Actions}
 
@@ -473,33 +499,12 @@ Every permutation can be represented as a directed graph where each node has one
 }
 
 
+\section{Coloring}
 
-
-\section{Groups}
-A group $G$ is a \textbf{set} with a function $G\times G \rightarrow G$ such that:
-\begin{enumerate}
-    \item \emph{Identity}: There exists $\textbf{id} \in G$ such that $\textbf{id}*g = g$ for all $g \in G$.
-    \item \emph{Closure}: For all $g_1, g_2 \in G$, $g_1*g_2 \in G$
-    \item \emph{Associativity}: $(g_1*g_2)*g_3 = g_1*(g_2*g_3)$
-    \item \emph{Inverse}: For all $g$, there exists $g^{-1} \in G$ such that $g*g^{-1} = \textbf{id}$
-\end{enumerate}
-A subgroup $H$ of $(G,*)$ is a subset of G which is a group under *.
-A subgroup of $S_n$ is a \textbf{permutation group}
-$C_n$ is a subset of $S_n$, the cyclic group. (Not the cycle graph $C_n$ or the Catalan number $C_n$)
-
-\subsection{Examples}
-\begin{itemize}
-\item $(\mathbb{R},*)$ is not a group because 0 has no inverse.
-\item $(\mathbb{R}\backslash\{0\},*)$ is a group with $\textbf{id} = 1$
-\item $(\mathbb{R},+)$ is a group with $\textbf{id} = 0$
-\item $(\mathbb{R}\backslash\{0\},*)$ is a group with $\textbf{id} = 1$
-\item $(\mathbb{Z}\slash 7\mathbb{Z},+)$ is a group with $\textbf{id} = 1$. $\mathbb{Z}\slash 7\mathbb{Z}$ means using modular arithmetic, so $5 + 5 = 3$ (because 10 mod 7 is 3).
-\item $(\mathbb{Z}\slash n\mathbb{Z}\backslash\{0\},*)$ is a group with $\textbf{id} = 1$ if and only if $n$ is prime. If $n$ is composite, then there is then for let $f$ be a factor of $n$. There is no $f^{-1}$ because $f$ times anything is never going to be 1.
- 
-\end{itemize}
-
-
-
+\termtable{
+\term{coloring} A coloring is a function $f: S \rightarrow C$, where $S$ is a set and $C$ is a set of colors.\\
+\term{$\overline{g}$} s\\
+}
 
 
 
