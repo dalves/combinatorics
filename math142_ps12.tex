@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+\author{David Alves}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{dirtytalk}
+\usepackage[a4paper]{geometry}
+\usepackage{forest}
+\usepackage{listings}
+\usepackage{mathtools}
+\usepackage{multicol}
+\usepackage{nth}
+\usepackage{relsize}
+\usepackage{skak}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{titling}
+\usepackage{wrapfig}
+\usepackage{xcolor}
+
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{patterns}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\def\multichoose#1#2{\ensuremath{\left(\kern-.3em\left(\genfrac{}{}{0pt}{}{#1}{#2}\right)\kern-.3em\right)}}
+
+\newcommand{\ts}[1]{\textsuperscript{#1}}
+
+\newcommand{\ProblemStatement}[1]{
+\subsection*{Problem Statement}
+#1
+\subsection*{Solution}
+}
+
+% If uncommented, next line hides problem statements 
+%\renewcommand{\ProblemStatement}[1]{}
+
+
+\title{Math 142 Problem Set 12}
+\author{David Alves}
+\date{2016-11-17}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\begin{center}
+\large \thetitle \\
+\theauthor \\
+\thedate
+\end{center}
+
+\subsection*{Sources}
+
+    \begin{itemize}
+    \item http://tex.stackexchange.com and https://www.sharelatex.com for help with \LaTeX
+    \end{itemize}
+
+\section{Permuted Cubes}
+\ProblemStatement{
+How many permutations $g$ in $S_5$ have $g^3 = id$ ($g^3$ is defined as $g*g*g$)
+}
+
+There are 11 permutations $g \in S_5$ such that $g^3 = id$.
+\begin{proof}
+We know that every item in a permutation is part of a cycle. The number of items in a cycle is between 1 and 5, because 1 is the smallest possible cycle and there are only 5 items in the permutation, so 5 is the largest possible. Of those sizes, only 1-item and 3-item cycles send every item to itself when cubed. Thus only permutations $g$ that consist entirely of 1- and 3-cycles have $g^3=id$. If the graph is all 1-cycles, it is $id$. If the graph contains a 3-cycle and two 1-cycles, there are $\binom{5}{3}$ ways to choose the items which participate in the 3-cycle and two possible orderings of those three items. (Suppose the cycle consists of A,B,C -- if you start at A, you can only choose B or C to be the next item, and then you have fully defined the cycle). The graph cannot have more than one 3-cycle because there are only 5 items, thus we have covered all possibilities. Thus there $2\binom{5}{3} + 1$ permutations $g$ such that $g^3=id$.
+\end{proof}
+\colorlet{verylightgray}{black!45}
+\begin{center}
+\begin{tikzpicture}
+\node[shape=circle] (A) at (.5*4,0) {1};
+\node[shape=circle] (B) at (.5*1.24, .4*3.8) {2};
+\node[shape=circle] (C) at (.5*-3.24,.4*2.35) {3};
+\node[shape=circle] (D) at (.5*-3.24,.4*-2.35) {4};
+\node[shape=circle] (E) at (.5*1.24, .4*-3.8) {5};
+\draw [->] (A) edge[bend right=10] (B);
+\draw [->] (B) edge[bend right=10] (D);
+\draw [->] (D) edge[bend left=10] (A);
+\draw [->] (C) edge[loop above,looseness=6] (C);
+\draw [->] (E) edge[loop above,looseness=6] (E);
+\node [above] at (4,0) {$\iff (124)(3)(5)$};
+\end{tikzpicture}
+\\Example of a valid permutation.
+\end{center}
+
+\section{High-Low-Mid}
+\ProblemStatement{
+A \say{high low mid} pattern in a permutation $(a_1,\dots,a_n)$ (this is list form, not cycle form, so it means 1 goes to $a_1$, 2 goes to $a_2$, etc.) of length $n$ is 3 terms $a_i, a_j, a_k$ where $i < j < k$ and $a_i > a_k > a_j$. (example: in the permutation 165243 the (6,2,3) terms form a \say{high low mid}). Count the number of permutations of length $n$ which avoid any \say{high low mid} patterns.
+}
+
+There are $C_n$ permutations which avoid any \say{high low mid} patterns, where $C_n$ is the $n$th Catalan number.
+
+\begin{proof}
+Let $f(n)$ be the number of permutations of length $n$ which avoid any \say{high low mid} patterns. For $n=0$, there is 1 permutation of of length 0 (the empty permutation), and it does not contain any \say{high low mid} patterns, so $f(0) = 1$. For $n \ge 1$, consider a permutation $a_1, a_2, a_3, \dots, a_n$. Since all elements are distinct, there must be some element with the lowest value. Let the index of that element be $k$. Let $A$ be the 0-or-more elements which precede $a_k$ and $B$ be the 0-or-more elements which come after $a_k$. 
+\[
+    \underbrace{a_1, a_2, \dots, a_{k-1}}_{A}, a_k, \underbrace{a_{k+1}, \dots, a_{n-1}, a_n}_{B}
+\]
+
+Since $a_k$ is the lowest element in the list, every element in $A$ must be lower than the lowest element in $B$, because otherwise some element of $A, a_k$, and some element of $B$ would form a high-low-mid pattern. Thus $a_k$ is the lowest element, the next $|A|$ lowest elements are all in $A$ in some order, while the rest are all in $B$. We also know that there can't be a high-low-mid which uses elements from $A$ and $B$ because the high would have to be in $A$ and the mid would have to be in $B$ but we know that all elements of $A$ are lower than $B$. Thus the overall permutation is free from high-low-mid patterns as long as there are none entirely in $A$ and none entirely in $B$. Thus there exists a recurrence relation for the  total number of permutations of length $n$ with no high-low-mid rules: For each possible value of $k$ there are $f(k-1)$ ways to order the items in $A$ such that they don't form a high-low-mid pattern, and $f(n-k)$ ways to order the items in $B$ such that they don't form a high-low-mid pattern. This gives $f(n) = \sum_{k=1}^nf(k-1)f(n-k)$. This is a recurrence relation for the Catalan numbers, and since we already know that $f(0) = C_0 = 1$, this means that $f(n)$ is $C_n$, the $n$th Catalan number.
+\end{proof}
+
+\section{Nine Nines}
+\ProblemStatement{
+Among the numbers $1, 2, \dots, 10^{10}$, are there more numbers with at least one 9 somewhere in the decimal notation, or are there more with no 9's
+}
+
+First observe that we can prepend zeroes to any number without changing the number of 9s in that number. Therefore the number of integers in $[0, 10^{10})$ without a 9 is equal to the number of length-10 digit lists without a 9, which gives 9 choices per digit or $9^{10}=3,486,784,401$ total lists. We also add one for $10^{10}$, but then remove one for zero, so the total is unchanged. The number of length-10 digit lists with a 9 is equal to the total number of length-10 digit lists minus the ones without a 9, giving $10^{10}-9^{10}=6,513,215,599$. Therefore there are more numbers with a 9 than without a 9 in $1, 2, 3, \dots, 10^{10}$
+
+\section{Jury Duty}
+\ProblemStatement{
+Suppose you have a jury of 3 people that make independent decisions on an important issue. Jurors X and Y each has a probability $p$ of making the correct decision. Juror Z (some fool named Zhang)  flips a coin to decide. The group decision is the majority of the 3 decisions. What is the probability that the jury as a whole makes the right decision?
+}
+The probability that the jury as a whole makes the correct decision is $p$.
+\begin{proof}
+The chance that both $X$ and $Y$ make the correct decision is $p^2$, in which case they form a majority. If $X$ and $Y$ do not both make the correct decision, the only other way to get a majority correct is to have either X or Y make the correct decision while the other makes the incorrect decision. The probability of this happening is $p(1-p)$ for X correct and Y incorrect, and the same for X incorrect and Y correct, giving $2p(1-p)$. We then multiply this by $\frac{1}{2}$, which is the probability that the coin will choose the correct decision. Thus overall we have $p^2 + 2p(1-p)(\frac{1}{2}) = p^2 + p -p^2 = p$
+\end{proof}
+
+\section{Fibonomials}
+\ProblemStatement{
+Show that $F_n = \binom{n-1}{0} + \binom{n-2}{1} + \binom{n-3}{2} + \dots \binom{0}{n-1}$, where $F_n$ is the $n$-th Fibonacci number.
+}
+
+\begin{proof}
+We prove this by strong induction on the statement 
+
+\[p(n): F_n = \binom{n-1}{0} + \binom{n-2}{1} + \binom{n-3}{2} + \dots \binom{0}{n-1}
+\]
+For $p(1)$, we have $F_1 = \binom{0}{0} = 1$, so $p(1)$ is true. For $p(2)$, we have $F_2 = \binom{1}{0} + \binom{0}{1} = 1$, so $p(2)$ is true. For $p(n): n \ge 3$, we know that 
+\begin{align}
+    p(n-2): F_{n-2} &= \binom{n-3}{0} + \binom{n-4}{1} + \binom{n-5}{2} + \dots + \binom{0}{n-3}\\
+    p(n-1): F_{n-1} &= \binom{n-2}{0} + \binom{n-3}{1} + \binom{n-4}{2} + \dots + \binom{0}{n-2}
+\end{align}
+
+Adding equations 1 and 2 gives:
+
+\begin{multline*}
+    F_{n-1} + F_{n-2} = \textstyle\binom{n-2}{0} + \left(\binom{n-3}{0}+\binom{n-3}{1}\right) + \left(\binom{n-4}{1}+\binom{n-4}{2}\right) + \left(\binom{n-5}{2}+\binom{n-5}{3}\right) +\dots\\ \textstyle+ \left(\binom{1}{n-4}+\binom{1}{n-3}\right) +\left(\binom{0}{n-3}+\binom{0}{n-2}\right)
+\end{multline*}
+Since $\binom{n-2}{-1}$ and $\binom{0}{n-1}$ are both 0, we can add them both to the right side, giving:
+\begin{multline*}
+    F_{n-1} + F_{n-2} = \textstyle\left(\binom{n-2}{-1} + \binom{n-2}{0}\right) + \left(\binom{n-3}{0}+\binom{n-3}{1}\right) + \left(\binom{n-4}{1}+\binom{n-4}{2}\right) + \left(\binom{n-5}{2}+\binom{n-5}{3}\right) +\dots\\ \textstyle+ \left(\binom{1}{n-4}+\binom{1}{n-3}\right) +\left(\binom{0}{n-3}+\binom{0}{n-2}\right) + \binom{0}{n-1}
+\end{multline*}
+Applying the identity $\binom{a}{b} = \binom{a-1}{b-1} + \binom{a-1}{b}$ to the parenthesized terms gives 
+\[
+    F_{n-1} + F_{n-2} = \binom{n-1}{0} + \binom{n-2}{1} + \binom{n-3}{2} + \dots +\binom{0}{n-1}
+\]
+Since $F_n = F_{n-1} + F_{n-2}$ by definition, we have shown that $p(n)$ is true, which completes the inductive proof.
+\end{proof}
+
+\section{Time Spent \& Thoughts}
+Overall a pretty easy problem set, much easier than last week. I spent about 8 hours on these problems. \#2 took the longest by far, because I spent a bunch of time trying to come up with a way to make a bijection but couldn't come up with one. I ended up having to just go off of the recurrence relation instead. I enjoyed \#2 and \#4 the most: \#2 because it was hard and \#4 because the answer was unexpected. Sadly there weren't any opportunities for cool diagrams this week. :)
+\end{document}
