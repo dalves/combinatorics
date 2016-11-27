@@ -63,7 +63,7 @@
 How many permutations $g$ in $S_5$ have $g^3 = id$ ($g^3$ is defined as $g*g*g$)
 }
 
-There are 11 permutations $g \in S_5$ such that $g^3 = id$.
+There are $2\binom{5}{3} + 1 = 21$ permutations $g \in S_5$ such that $g^3 = id$.
 \begin{proof}
 We know that every item in a permutation is part of a cycle. The number of items in a cycle is between 1 and 5, because 1 is the smallest possible cycle and there are only 5 items in the permutation, so 5 is the largest possible. Of those sizes, only 1-item and 3-item cycles send every item to itself when cubed. Thus only permutations $g$ that consist entirely of 1- and 3-cycles have $g^3=id$. If the graph is all 1-cycles, it is $id$. If the graph contains a 3-cycle and two 1-cycles, there are $\binom{5}{3}$ ways to choose the items which participate in the 3-cycle and two possible orderings of those three items. (Suppose the cycle consists of A,B,C -- if you start at A, you can only choose B or C to be the next item, and then you have fully defined the cycle). The graph cannot have more than one 3-cycle because there are only 5 items, thus we have covered all possibilities. Thus there $2\binom{5}{3} + 1$ permutations $g$ such that $g^3=id$.
 \end{proof}
