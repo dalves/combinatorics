@@ -375,7 +375,10 @@ Example for $n=4:$
 \end{multline*}
 \subsection{Derangements}
 \[
-    D(n) = n!\sum_{i=0}^n \frac{(-1)^i}{i!} = n! - \frac{n!}{1!} + \frac{n!}{2!} - \frac{n!}{3!} +\ldots \approx \frac{n!}{e}
+    d_n = n!\sum_{i=0}^n \frac{(-1)^i}{i!} = n! - \frac{n!}{1!} + \frac{n!}{2!} - \frac{n!}{3!} +\ldots \approx \frac{n!}{e}
+\]
+\[
+    d_n = (n-1)(d_{n-1} + d_{n-2})
 \]
 
 %\[xC^2(x)-C(x) + 1 = 0\]
