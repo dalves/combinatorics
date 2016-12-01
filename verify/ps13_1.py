@@ -10,7 +10,7 @@ def orbit(x):
 
 for paint in itertools.product([1, 2, 3], repeat=8):
     if paint not in seen:
-        seen.update(set(orbit(paint)))
+        seen.update(orbit(paint))
         count += 1
 
 print(count)
