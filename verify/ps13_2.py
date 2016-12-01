@@ -2,6 +2,7 @@
 
 import itertools
 
+# Problem is small enough that it's fine to operate on strings
 foods = 'turkey stuffing cornbread salad1 salad2 dessert1 dessert2 dessert3'.split()
 valid = 0
 for cardinality in range(len(foods) + 1):
